@@ -72,7 +72,7 @@ class _PrivateInformationState extends State<PrivateInformation> {
                     ),
                   ),
                   onTap: () {
-                    // Navigator.pushNamed(context, "/placeMobileAd");
+                    Navigator.pushNamed(context, "/changeEmail");
                   },
                 ),
               ),
@@ -117,7 +117,7 @@ class _PrivateInformationState extends State<PrivateInformation> {
                     ),
                   ),
                   onTap: () {
-                    // Navigator.pushNamed(context, "/placeMobileAd");
+                    Navigator.pushNamed(context, "/changePhoneNumber");
                   },
                 ),
               ),
@@ -152,7 +152,7 @@ class _PrivateInformationState extends State<PrivateInformation> {
                     ),
                   ),
                   onTap: () {
-                    // Navigator.pushNamed(context, "/placeMobileAd");
+                    // Navigator.pushNamed(context, "/changeEmail");
                   },
                 ),
               ),

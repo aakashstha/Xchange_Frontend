@@ -72,7 +72,7 @@ class _SettingsState extends State<Settings> {
                     ),
                   ),
                   onTap: () {
-                    // Navigator.pushNamed(context, "/placeMobileAd");
+                    Navigator.pushNamed(context, "/notifications");
                   },
                 ),
               ),
@@ -117,7 +117,7 @@ class _SettingsState extends State<Settings> {
                     ),
                   ),
                   onTap: () {
-                    // Navigator.pushNamed(context, "/placeMobileAd");
+                    Navigator.pushNamed(context, "/changePassword");
                   },
                 ),
               ),

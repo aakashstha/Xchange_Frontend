@@ -97,7 +97,7 @@ class _AccountState extends State<Account> {
                     ),
                   ),
                   onTap: () {
-                    // Navigator.pushNamed(context, "/placeMobileAd");
+                    Navigator.pushNamed(context, "/settings");
                   },
                 ),
                 Container(
@@ -126,7 +126,7 @@ class _AccountState extends State<Account> {
                     ),
                   ),
                   onTap: () {
-                    // Navigator.pushNamed(context, "/placeMobileAd");
+                    Navigator.pushNamed(context, "/privateInformation");
                   },
                 ),
                 Container(
@@ -155,7 +155,7 @@ class _AccountState extends State<Account> {
                     ),
                   ),
                   onTap: () {
-                    // Navigator.pushNamed(context, "/placeMobileAd");
+                    Navigator.pushNamed(context, "/inviteFriends");
                   },
                 ),
                 Container(
@@ -184,7 +184,7 @@ class _AccountState extends State<Account> {
                     ),
                   ),
                   onTap: () {
-                    // Navigator.pushNamed(context, "/placeMobileAd");
+                    Navigator.pushNamed(context, "/help");
                   },
                 ),
                 Container(
