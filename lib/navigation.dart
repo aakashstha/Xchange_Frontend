@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:xchange_frontend/theme_colors.dart';
 import 'package:xchange_frontend/Home/home.dart';
+import 'package:xchange_frontend/Home/sell.dart';
+import 'package:xchange_frontend/Home/my_ads.dart';
+import 'package:xchange_frontend/Home/account.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({Key? key}) : super(key: key);
@@ -13,9 +16,9 @@ class _NavigationState extends State<Navigation> {
   int _currentIndex = 0;
   final _pageOptions = [
     const Home(),
-    // ATM(),
-    // News(),
-    // More(),
+    const Sell(),
+    const MyAds(),
+    const Account(),
   ];
   @override
   Widget build(BuildContext context) {

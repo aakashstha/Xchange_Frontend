@@ -203,11 +203,11 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     onPressed: () {
-                      login(_controllerEmail.text, _controllerPassword.text);
+                      // login(_controllerEmail.text, _controllerPassword.text);
 
-                      if (loginTry) {
-                        Navigator.pushNamed(context, "/navigation");
-                      }
+                      // if (loginTry) {
+                      Navigator.pushNamed(context, "/navigation");
+                      //  }
                     },
                   ),
                 ),

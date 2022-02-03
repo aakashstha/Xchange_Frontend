@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:xchange_frontend/log_in.dart';
+import 'package:xchange_frontend/login.dart';
 import 'package:xchange_frontend/theme_colors.dart';
 import 'package:xchange_frontend/navigation.dart';
-import 'package:xchange_frontend/models/login_request.dart';
+import 'package:xchange_frontend/signup.dart';
+import 'package:xchange_frontend/reset_password.dart';
+import 'package:xchange_frontend/Home/home.dart';
+import 'package:xchange_frontend/Home/sell.dart';
+import 'package:xchange_frontend/Home/my_ads.dart';
+import 'package:xchange_frontend/Home/account.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,13 +34,20 @@ class MyApp extends StatelessWidget {
         ),
       ),
       routes: <String, WidgetBuilder>{
-        '/logIn': (context) => const Login(),
+        '/login': (context) => const Login(),
+        '/signup': (context) => const Signup(),
+        '/resetPassword': (context) => const ResetPassword(),
+
+        // main pages in this application
         '/navigation': (context) => const Navigation(),
-        '/loginRequest': (context) => const MyApp1(),
+        '/home': (context) => const Home(),
+        '/sell': (context) => const Sell(),
+        '/myAds': (context) => const MyAds(),
+        '/account': (context) => const Account(),
+
+        // Others
       },
-      home: const Scaffold(
-        body: Login(),
-      ),
+      home: const Login(),
     );
   }
 }
