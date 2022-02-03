@@ -19,4 +19,5 @@ class HomeColors {
   static Color mobiles = const Color(0xFF003034);
   static Color musicalInstruments = const Color(0xFFD20303);
   static Color urgentSale = const Color(0xFFD20303);
+  static Color appBar = const Color(0xFFF3F2F8);
 }

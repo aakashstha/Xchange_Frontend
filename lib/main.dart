@@ -8,6 +8,8 @@ import 'package:xchange_frontend/Home/home.dart';
 import 'package:xchange_frontend/Home/sell.dart';
 import 'package:xchange_frontend/Home/my_ads.dart';
 import 'package:xchange_frontend/Home/account.dart';
+import 'package:xchange_frontend/Home/Others/more_category.dart';
+import 'package:xchange_frontend/Home/Category/cars.dart';
 
 void main() {
   runApp(const MyApp());
@@ -46,6 +48,8 @@ class MyApp extends StatelessWidget {
         '/account': (context) => const Account(),
 
         // Others
+        '/moreCategory': (context) => const MoreCategory(),
+        '/cars': (context) => const Cars(),
       },
       home: const Login(),
     );

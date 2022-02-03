@@ -70,8 +70,7 @@ class _HomeState extends State<Home> {
                     child: IconButton(
                       icon: Icon(Icons.drive_eta, size: 40, color: white),
                       onPressed: () {
-                        // ignore: avoid_print
-                        print("Cars");
+                        Navigator.pushNamed(context, "/cars");
                       },
                     ),
                   ),
@@ -326,8 +325,7 @@ class _HomeState extends State<Home> {
               ],
             ),
             onTap: () {
-              // ignore: avoid_print
-              print("More");
+              Navigator.pushNamed(context, "/moreCategory");
             },
           ),
         ),
