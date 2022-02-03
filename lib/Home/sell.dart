@@ -138,8 +138,7 @@ class _SellState extends State<Sell> {
               ),
             ),
             onTap: () {
-              // ignore: avoid_print
-              print("Cars");
+              Navigator.pushNamed(context, "/placeCarAd");
             },
           ),
           Padding(
@@ -578,8 +577,7 @@ class _SellState extends State<Sell> {
               ),
             ),
             onTap: () {
-              // ignore: avoid_print
-              print("Mobiles");
+              Navigator.pushNamed(context, "/placeMobileAd");
             },
           ),
           Padding(
