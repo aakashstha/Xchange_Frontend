@@ -179,7 +179,9 @@ class _LoginState extends State<Login> {
                         fontFamily: 'RobotoCondensed',
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/signup");
+                    },
                   ),
                 ),
               ),
@@ -225,7 +227,9 @@ class _LoginState extends State<Login> {
                   fontFamily: 'RobotoCondensed',
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, "/forgotPassword");
+              },
             ),
           ),
         ],

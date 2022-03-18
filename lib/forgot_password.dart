@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:xchange_frontend/theme_colors.dart';
 import 'package:flutter/cupertino.dart';
 
-class ResetPassword extends StatefulWidget {
-  const ResetPassword({Key? key}) : super(key: key);
+class ForgotPassword extends StatefulWidget {
+  const ForgotPassword({Key? key}) : super(key: key);
 
   @override
-  _ResetPasswordState createState() => _ResetPasswordState();
+  _ForgotPasswordState createState() => _ForgotPasswordState();
 }
 
-class _ResetPasswordState extends State<ResetPassword> {
+class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

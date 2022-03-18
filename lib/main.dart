@@ -3,7 +3,7 @@ import 'package:xchange_frontend/login.dart';
 import 'package:xchange_frontend/theme_colors.dart';
 import 'package:xchange_frontend/navigation.dart';
 import 'package:xchange_frontend/signup.dart';
-import 'package:xchange_frontend/reset_password.dart';
+import 'package:xchange_frontend/forgot_password.dart';
 import 'package:xchange_frontend/Home/home.dart';
 import 'package:xchange_frontend/Home/sell.dart';
 import 'package:xchange_frontend/Home/my_ads.dart';
@@ -20,6 +20,9 @@ import 'package:xchange_frontend/Account/notifications.dart';
 import 'package:xchange_frontend/Account/change_password.dart';
 import 'package:xchange_frontend/Account/change_email.dart';
 import 'package:xchange_frontend/Account/change_phonenumber.dart';
+import 'package:xchange_frontend/fetchData/one.dart';
+// import 'package:xchange_frontend/fetchData/test2.dart';
+import 'package:xchange_frontend/fetchData/data_mobile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,7 +51,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/login': (context) => const Login(),
         '/signup': (context) => const Signup(),
-        '/resetPassword': (context) => const ResetPassword(),
+        '/forgotPassword': (context) => const ForgotPassword(),
 
         // main pages in this application
         '/navigation': (context) => const Navigation(),
@@ -73,7 +76,7 @@ class MyApp extends StatelessWidget {
         '/changeEmail': (context) => const ChangeEmail(),
         '/changePhoneNumber': (context) => const ChangePhoneNumber(),
       },
-      home: const Login(),
+      home: BuyMobileAd(),
     );
   }
 }
