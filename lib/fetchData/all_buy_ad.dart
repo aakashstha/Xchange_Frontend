@@ -54,14 +54,21 @@ class AllBuyAds extends StatelessWidget {
 
 Widget getAd(dynamic datalist, BuildContext context, String category) {
   String fetchRoute = '';
-  if (category == 'cars') {
-    fetchRoute = '/fetchOneCarAd';
-  } else if (category == 'bikes') {
+  if (category == 'cars' || category == 'bikes') {
     fetchRoute = '/fetchOneCarAd';
   } else if (category == 'mobiles') {
     fetchRoute = '/fetchOneMobileAd';
   } else if (category == 'properties') {
     fetchRoute = '/fetchOnePropertyAd';
+  } else if (category == 'jobs') {
+    fetchRoute = '/fetchOneJobAd';
+  } else if (category == 'rooms') {
+    fetchRoute = '/fetchOneRoomAd';
+  } else if (category == 'books' ||
+      category == 'services' ||
+      category == 'electronics' ||
+      category == 'musicInstruments') {
+    fetchRoute = '/fetchOneBookAd';
   }
 
   return InkWell(

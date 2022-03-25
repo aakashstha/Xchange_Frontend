@@ -20,11 +20,14 @@ import 'package:xchange_frontend/Account/notifications.dart';
 import 'package:xchange_frontend/Account/change_password.dart';
 import 'package:xchange_frontend/Account/change_email.dart';
 import 'package:xchange_frontend/Account/change_phonenumber.dart';
-import 'package:xchange_frontend/fetchData/all_buy_ads.dart';
+import 'package:xchange_frontend/fetchData/all_buy_ad.dart';
 import 'package:xchange_frontend/fetchData/cars_bikes/cars_one.dart';
 import 'package:xchange_frontend/fetchData/mobiles/mobiles_one.dart';
 import 'package:xchange_frontend/fetchData/properties/property_one.dart';
-import 'package:xchange_frontend/fetchData/view_image.dart';
+import 'package:xchange_frontend/fetchData/jobs/jobs_one.dart';
+import 'package:xchange_frontend/fetchData/rooms/rooms_one.dart';
+import 'package:xchange_frontend/fetchData/books_and_Others/books_others.dart';
+import 'package:xchange_frontend/fetchData/all_view_image.dart';
 
 void main() {
   runApp(const MyApp());
@@ -83,6 +86,9 @@ class MyApp extends StatelessWidget {
         '/fetchOneCarAd': (context) => const CarOneAd(),
         '/fetchOneMobileAd': (context) => const MobileOneAd(),
         '/fetchOnePropertyAd': (context) => const PropertyOneAd(),
+        '/fetchOneJobAd': (context) => const JobOneAd(),
+        '/fetchOneRoomAd': (context) => const RoomOneAd(),
+        '/fetchOneBookAd': (context) => const BookAndAllOneAd(),
         '/fetchAllImage': (context) => const ImageOnly(),
       },
       home: const Login(),

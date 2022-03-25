@@ -7,4 +7,8 @@ void main() {
 
 
 // 1. cars, bikes
-// 2. 
+// 2. mobiles
+// 3. properties
+// 4. jobs
+// 5. rooms
+// 6. books, services, electronics, musicInstruments

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:xchange_frontend/theme_colors.dart';
 
-class PropertyOneAd extends StatelessWidget {
-  const PropertyOneAd({Key? key}) : super(key: key);
+class JobOneAd extends StatelessWidget {
+  const JobOneAd({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +142,7 @@ class PropertyOneAd extends StatelessWidget {
               height: 16,
             ),
             Text(
-              "Type: " + arguments['type'],
+              "Salary Period: " + arguments['salaryPeriod'],
               style: TextStyle(
                 fontSize: 16,
                 color: black,
@@ -153,7 +153,7 @@ class PropertyOneAd extends StatelessWidget {
               height: 16,
             ),
             Text(
-              "Bedrooms: " + arguments['bedrooms'],
+              "Position Type: " + arguments['positionType'],
               style: TextStyle(
                 fontSize: 16,
                 color: black,
@@ -164,7 +164,7 @@ class PropertyOneAd extends StatelessWidget {
               height: 16,
             ),
             Text(
-              "Bathrooms: " + arguments['bathrooms'],
+              "Salary From: " + arguments['salaryFrom'],
               style: TextStyle(
                 fontSize: 16,
                 color: black,
@@ -175,7 +175,7 @@ class PropertyOneAd extends StatelessWidget {
               height: 16,
             ),
             Text(
-              "Furnishing: " + arguments['furnishing'],
+              "Salary To: " + arguments['salaryTo'],
               style: TextStyle(
                 fontSize: 16,
                 color: black,
@@ -186,62 +186,7 @@ class PropertyOneAd extends StatelessWidget {
               height: 16,
             ),
             Text(
-              "Listed By: " + arguments['listedBy'],
-              style: TextStyle(
-                fontSize: 16,
-                color: black,
-                fontFamily: 'RobotoCondensed',
-              ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Text(
-              "Total Floors: " + arguments['totalFloors'],
-              style: TextStyle(
-                fontSize: 16,
-                color: black,
-                fontFamily: 'RobotoCondensed',
-              ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Text(
-              "Area: " + arguments['area'],
-              style: TextStyle(
-                fontSize: 16,
-                color: black,
-                fontFamily: 'RobotoCondensed',
-              ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Text(
-              "Facing: " + arguments['facing'],
-              style: TextStyle(
-                fontSize: 16,
-                color: black,
-                fontFamily: 'RobotoCondensed',
-              ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Text(
-              "Furnishing: " + arguments['furnishing'],
-              style: TextStyle(
-                fontSize: 16,
-                color: black,
-                fontFamily: 'RobotoCondensed',
-              ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Text(
-              "Description:",
+              "Description",
               style: TextStyle(
                 fontSize: 16,
                 color: black,
