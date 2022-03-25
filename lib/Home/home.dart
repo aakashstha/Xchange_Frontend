@@ -70,7 +70,8 @@ class _HomeState extends State<Home> {
                     child: IconButton(
                       icon: Icon(Icons.drive_eta, size: 40, color: white),
                       onPressed: () {
-                       // Navigator.pushNamed(context, "/cars");
+                        Navigator.pushNamed(context, "/fetchAllBuyAds",
+                            arguments: {'category': 'cars'});
                       },
                     ),
                   ),
@@ -99,8 +100,8 @@ class _HomeState extends State<Home> {
                     child: IconButton(
                       icon: Icon(Icons.two_wheeler, size: 40, color: white),
                       onPressed: () {
-                        // ignore: avoid_print
-                        print("Bikes");
+                        Navigator.pushNamed(context, "/fetchAllBuyAds",
+                            arguments: {'category': 'bikes'});
                       },
                     ),
                   ),
@@ -129,8 +130,8 @@ class _HomeState extends State<Home> {
                     child: IconButton(
                       icon: Icon(Icons.apartment, size: 40, color: white),
                       onPressed: () {
-                        // ignore: avoid_print
-                        print("Properties");
+                        Navigator.pushNamed(context, "/fetchAllBuyAds",
+                            arguments: {'category': 'properties'});
                       },
                     ),
                   ),
@@ -159,8 +160,8 @@ class _HomeState extends State<Home> {
                     child: IconButton(
                       icon: Icon(Icons.work, size: 40, color: white),
                       onPressed: () {
-                        // ignore: avoid_print
-                        print("Jobs");
+                        Navigator.pushNamed(context, "/fetchAllBuyAds",
+                            arguments: {'category': 'jobs'});
                       },
                     ),
                   ),
@@ -194,8 +195,8 @@ class _HomeState extends State<Home> {
                     child: IconButton(
                       icon: Icon(Icons.hotel, size: 40, color: white),
                       onPressed: () {
-                        // ignore: avoid_print
-                        print("Rooms");
+                        Navigator.pushNamed(context, "/fetchAllBuyAds",
+                            arguments: {'category': 'rooms'});
                       },
                     ),
                   ),
@@ -224,8 +225,8 @@ class _HomeState extends State<Home> {
                     child: IconButton(
                       icon: Icon(Icons.book, size: 40, color: white),
                       onPressed: () {
-                        // ignore: avoid_print
-                        print("Books");
+                        Navigator.pushNamed(context, "/fetchAllBuyAds",
+                            arguments: {'category': 'books'});
                       },
                     ),
                   ),
@@ -254,8 +255,8 @@ class _HomeState extends State<Home> {
                     child: IconButton(
                       icon: Icon(Icons.build, size: 40, color: white),
                       onPressed: () {
-                        // ignore: avoid_print
-                        print("Services");
+                        Navigator.pushNamed(context, "/fetchAllBuyAds",
+                            arguments: {'category': 'services'});
                       },
                     ),
                   ),
@@ -284,8 +285,8 @@ class _HomeState extends State<Home> {
                     child: IconButton(
                       icon: Icon(Icons.computer, size: 40, color: white),
                       onPressed: () {
-                        // ignore: avoid_print
-                        print("Electronics");
+                        Navigator.pushNamed(context, "/fetchAllBuyAds",
+                            arguments: {'category': 'electronics'});
                       },
                     ),
                   ),
@@ -337,7 +338,7 @@ class _HomeState extends State<Home> {
             "Recommendation for You",
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 16,
+              fontSize: 16, 
               color: black,
               fontFamily: 'RobotoCondensed',
               decoration: TextDecoration.underline,

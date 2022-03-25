@@ -78,7 +78,8 @@ class _MoreCategoryState extends State<MoreCategory> {
               ),
             ),
             onTap: () {
-              Navigator.pushNamed(context, "/cars");
+              Navigator.pushNamed(context, "/fetchAllBuyAds",
+                  arguments: {'category': 'cars'});
             },
           ),
           Padding(
@@ -132,8 +133,8 @@ class _MoreCategoryState extends State<MoreCategory> {
               ),
             ),
             onTap: () {
-              // ignore: avoid_print
-              print("Bikes");
+              Navigator.pushNamed(context, "/fetchAllBuyAds",
+                  arguments: {'category': 'bikes'});
             },
           ),
           Padding(
@@ -187,8 +188,8 @@ class _MoreCategoryState extends State<MoreCategory> {
               ),
             ),
             onTap: () {
-              // ignore: avoid_print
-              print("Properties");
+              Navigator.pushNamed(context, "/fetchAllBuyAds",
+                  arguments: {'category': 'properties'});
             },
           ),
           Padding(
@@ -242,8 +243,8 @@ class _MoreCategoryState extends State<MoreCategory> {
               ),
             ),
             onTap: () {
-              // ignore: avoid_print
-              print("Jobs");
+              Navigator.pushNamed(context, "/fetchAllBuyAds",
+                  arguments: {'category': 'jobs'});
             },
           ),
           Padding(
@@ -297,8 +298,8 @@ class _MoreCategoryState extends State<MoreCategory> {
               ),
             ),
             onTap: () {
-              // ignore: avoid_print
-              print("Rooms");
+              Navigator.pushNamed(context, "/fetchAllBuyAds",
+                  arguments: {'category': 'rooms'});
             },
           ),
           Padding(
@@ -352,8 +353,8 @@ class _MoreCategoryState extends State<MoreCategory> {
               ),
             ),
             onTap: () {
-              // ignore: avoid_print
-              print("Books");
+              Navigator.pushNamed(context, "/fetchAllBuyAds",
+                  arguments: {'category': 'books'});
             },
           ),
           Padding(
@@ -407,8 +408,8 @@ class _MoreCategoryState extends State<MoreCategory> {
               ),
             ),
             onTap: () {
-              // ignore: avoid_print
-              print("Services");
+              Navigator.pushNamed(context, "/fetchAllBuyAds",
+                  arguments: {'category': 'services'});
             },
           ),
           Padding(
@@ -462,8 +463,8 @@ class _MoreCategoryState extends State<MoreCategory> {
               ),
             ),
             onTap: () {
-              // ignore: avoid_print
-              print("Electronics");
+              Navigator.pushNamed(context, "/fetchAllBuyAds",
+                  arguments: {'category': 'electronics'});
             },
           ),
           Padding(
@@ -517,8 +518,8 @@ class _MoreCategoryState extends State<MoreCategory> {
               ),
             ),
             onTap: () {
-              // ignore: avoid_print
-              print("Mobiles");
+              Navigator.pushNamed(context, "/fetchAllBuyAds",
+                  arguments: {'category': 'mobiles'});
             },
           ),
           Padding(
@@ -572,8 +573,8 @@ class _MoreCategoryState extends State<MoreCategory> {
               ),
             ),
             onTap: () {
-              // ignore: avoid_print
-              print("Musical Instruments");
+              Navigator.pushNamed(context, "/fetchAllBuyAds",
+                  arguments: {'category': 'musicInstruments'});
             },
           ),
           Padding(
