@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xchange_frontend/theme_colors.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:xchange_frontend/postData/post_url.dart';
 
 class CarAd extends StatefulWidget {
   const CarAd({Key? key}) : super(key: key);
@@ -10,6 +11,14 @@ class CarAd extends StatefulWidget {
 }
 
 class _CarAdState extends State<CarAd> {
+  final TextEditingController _brandController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
+  final TextEditingController _yearController = TextEditingController();
+  final TextEditingController _kmDrivenController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _adTitleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,8 +68,9 @@ class _CarAdState extends State<CarAd> {
             padding: const EdgeInsets.symmetric(horizontal: 22),
             child: Column(
               children: [
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _brandController,
+                  decoration: const InputDecoration(
                     hintText: 'Brand*',
                   ),
                 ),
@@ -70,8 +80,9 @@ class _CarAdState extends State<CarAd> {
                   color: Colors.grey,
                 ),
                 const SizedBox(height: 10),
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _priceController,
+                  decoration: const InputDecoration(
                     hintText: 'Price*',
                   ),
                 ),
@@ -81,9 +92,10 @@ class _CarAdState extends State<CarAd> {
                   color: Colors.grey,
                 ),
                 const SizedBox(height: 10),
-                const TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Fuel*',
+                TextField(
+                  controller: _yearController,
+                  decoration: const InputDecoration(
+                    hintText: 'Year*',
                   ),
                 ),
                 Container(
@@ -92,8 +104,9 @@ class _CarAdState extends State<CarAd> {
                   color: Colors.grey,
                 ),
                 const SizedBox(height: 10),
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _kmDrivenController,
+                  decoration: const InputDecoration(
                     hintText: 'KM driven*',
                   ),
                 ),
@@ -102,9 +115,21 @@ class _CarAdState extends State<CarAd> {
                   width: double.infinity,
                   color: Colors.grey,
                 ),
+                TextField(
+                  controller: _locationController,
+                  decoration: const InputDecoration(
+                    hintText: 'Location*',
+                  ),
+                ),
+                Container(
+                  height: 1.5,
+                  width: double.infinity,
+                  color: Colors.grey,
+                ),
                 const SizedBox(height: 10),
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _adTitleController,
+                  decoration: const InputDecoration(
                     hintText: 'Ad title*',
                   ),
                 ),
@@ -128,8 +153,9 @@ class _CarAdState extends State<CarAd> {
                     ),
                   ],
                 ),
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _descriptionController,
+                  decoration: const InputDecoration(
                     hintText: 'Describe the item you are selling*',
                   ),
                 ),
@@ -246,7 +272,26 @@ class _CarAdState extends State<CarAd> {
                         fontFamily: 'RobotoCondensed',
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      // print(_brandController.text);
+                      // print(_priceController.text);
+                      // print(_yearController.text);
+                      // print(_kmDrivenController.text);
+                      // print(_locationController.text);
+                      // print(_adTitleController.text);
+                      // print(_descriptionController.text);
+                      // int price = int.parse(_priceController.text);
+
+                      //   createCarAd(
+                      //       _brandController.text,
+                      //       price,
+                      //       _yearController.text,
+                      //       _kmDrivenController.text,
+                      //       _locationController.text,
+                      //       _adTitleController.text,
+                      //       _descriptionController.text);
+                      createCarAd1();
+                    },
                   ),
                 ),
                 const SizedBox(height: 40),

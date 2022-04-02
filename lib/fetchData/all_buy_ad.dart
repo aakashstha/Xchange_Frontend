@@ -10,6 +10,7 @@ class AllBuyAds extends StatelessWidget {
   Widget build(BuildContext context) {
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
     // print(arguments['category']);
+
     final response =
         Uri.parse("http://localhost:8000/" + arguments['category']);
     Future<List<dynamic>> fetchMobileAds() async {
@@ -27,7 +28,7 @@ class AllBuyAds extends StatelessWidget {
         foregroundColor: black,
         backgroundColor: HomeColors.appBar,
         title: Text(appBarText),
-        actions: [Center(child: Text("6"))],
+        // actions: [Center(child: Text("6"))],
       ),
       body: FutureBuilder<List<dynamic>>(
         future: fetchMobileAds(),

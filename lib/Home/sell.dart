@@ -132,7 +132,7 @@ class _SellState extends State<Sell> {
                   Icon(
                     Icons.chevron_right,
                     size: 26,
-                    color: black,
+                    color: black, 
                   )
                 ],
               ),
