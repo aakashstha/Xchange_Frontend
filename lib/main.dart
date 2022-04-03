@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:xchange_frontend/login.dart';
 import 'package:xchange_frontend/navigation.dart';
 import 'package:xchange_frontend/postData/test.dart';
+import 'package:xchange_frontend/postData/test2.dart';
 // Same Category
 
 // 1. cars, bikes
@@ -10,5 +12,5 @@ import 'package:xchange_frontend/postData/test.dart';
 // 5. rooms
 // 6. books, services, electronics, musicInstruments
 void main() {
-  runApp(const Test());
+  runApp(const MyApp());
 }

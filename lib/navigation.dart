@@ -29,10 +29,6 @@ import 'package:xchange_frontend/fetchData/rooms/rooms_one.dart';
 import 'package:xchange_frontend/fetchData/books_and_Others/books_others.dart';
 import 'package:xchange_frontend/fetchData/all_view_image.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:xchange_frontend/theme_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:xchange_frontend/postData/post_url.dart';
+import 'package:xchange_frontend/postData/gall_cam.dart';
+import 'dart:io';
 
 class CarAd extends StatefulWidget {
   const CarAd({Key? key}) : super(key: key);
@@ -18,6 +21,7 @@ class _CarAdState extends State<CarAd> {
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController _adTitleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+  List<XFile>? imagefiles;
 
   @override
   Widget build(BuildContext context) {
@@ -68,11 +72,17 @@ class _CarAdState extends State<CarAd> {
             padding: const EdgeInsets.symmetric(horizontal: 22),
             child: Column(
               children: [
-                TextField(
+                TextFormField(
                   controller: _brandController,
                   decoration: const InputDecoration(
                     hintText: 'Brand*',
                   ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  }
                 ),
                 Container(
                   height: 1.5,
@@ -247,14 +257,31 @@ class _CarAdState extends State<CarAd> {
                           ),
                         ],
                       ),
-                      onTap: () {
-                        // ignore: avoid_print
-                        print('Photo');
+                      onTap: () async {
+                        imagefiles = await openGallery();
+                        //  print(imagefiles![0].path);
+                        setState(() {});
                       },
                     ),
                   ],
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 20),
+                // Selected Images from Gallery
+                imagefiles != null
+                    ? Wrap(
+                        children: imagefiles!.map((imageone) {
+                          return Card(
+                            child: SizedBox(
+                              height: 125,
+                              width: 84,
+                              child: Image.file(File(imageone.path)),
+                            ),
+                          );
+                        }).toList(),
+                      )
+                    : Container(),
+
+                const SizedBox(height: 20),
                 Container(
                   width: 380,
                   height: 60,
@@ -280,17 +307,28 @@ class _CarAdState extends State<CarAd> {
                       // print(_locationController.text);
                       // print(_adTitleController.text);
                       // print(_descriptionController.text);
-                      // int price = int.parse(_priceController.text);
 
-                      //   createCarAd(
-                      //       _brandController.text,
-                      //       price,
-                      //       _yearController.text,
-                      //       _kmDrivenController.text,
-                      //       _locationController.text,
-                      //       _adTitleController.text,
-                      //       _descriptionController.text);
-                      createCarAd1();
+                      if (_brandController.text.isEmpty ||
+                          _priceController.text.isEmpty ||
+                          _yearController.text.isEmpty ||
+                          _kmDrivenController.text.isEmpty ||
+                          _locationController.text.isEmpty ||
+                          _adTitleController.text.isEmpty ||
+                          _descriptionController.text.isEmpty) {
+                        print('Text Field is empty, Please Fill All Data');
+                      } else {
+                        int price = int.parse(_priceController.text);
+
+                        createCarAd(
+                            _brandController.text,
+                            price,
+                            _yearController.text,
+                            _kmDrivenController.text,
+                            _locationController.text,
+                            _adTitleController.text,
+                            _descriptionController.text,
+                            imagefiles!);
+                      }
                     },
                   ),
                 ),
