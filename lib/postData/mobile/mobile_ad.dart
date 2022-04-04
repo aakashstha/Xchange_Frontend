@@ -1,17 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:xchange_frontend/theme_colors.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:xchange_frontend/firstPages/theme_colors.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:xchange_frontend/postData/mobile/post_mobile_url.dart';
+import 'package:xchange_frontend/postData/gall_cam.dart';
+import 'dart:io';
 
 class MobileAd extends StatefulWidget {
   const MobileAd({Key? key}) : super(key: key);
 
   @override
-  _MobileAdState createState() => _MobileAdState();
+  _CarAdState createState() => _CarAdState();
 }
 
-class _MobileAdState extends State<MobileAd> {
+class _CarAdState extends State<MobileAd> {
+  final TextEditingController _brandController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _adTitleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  List<XFile>? imagefiles;
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
+    Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
+    print(arguments);
+
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
@@ -57,179 +72,263 @@ class _MobileAdState extends State<MobileAd> {
           // Cars
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 22),
-            child: Column(
-              children: [
-                const TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Brand*',
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: _brandController,
+                    decoration: const InputDecoration(
+                      hintText: 'Brand*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter brand';
+                      }
+                      return null;
+                    },
                   ),
-                ),
-                Container(
-                  height: 1.5,
-                  width: double.infinity,
-                  color: Colors.grey,
-                ),
-                const SizedBox(height: 10),
-                const TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Price*',
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
                   ),
-                ),
-                Container(
-                  height: 1.5,
-                  width: double.infinity,
-                  color: Colors.grey,
-                ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _priceController,
+                    decoration: const InputDecoration(
+                      hintText: 'Price*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter price';
+                      } else if (int.tryParse(value) == null) {
+                        return 'Please enter valid price';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
 
-                const SizedBox(height: 10),
-                const TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Ad title*',
+                  TextFormField(
+                    controller: _locationController,
+                    decoration: const InputDecoration(
+                      hintText: 'Location*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter location';
+                      }
+                      return null;
+                    },
                   ),
-                ),
-                Container(
-                  height: 1.5,
-                  width: double.infinity,
-                  color: Colors.grey,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5),
+
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _adTitleController,
+                    maxLength: 80,
+                    decoration: const InputDecoration(
+                      hintText: 'Ad title*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter Ad title';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  TextFormField(
+                    maxLines: 3,
+                    controller: _descriptionController,
+                    maxLength: 5000,
+                    decoration: const InputDecoration(
+                      hintText: 'Describe the item you are selling*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter Description';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  // Add Phtos Section
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Center(
                       child: Text(
-                        "0/80",
+                        "Add Photo",
                         style: TextStyle(
                           color: black,
-                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          fontFamily: 'RobotoCondenced',
+                          decoration: TextDecoration.underline,
                         ),
                       ),
                     ),
-                  ],
-                ),
-                const TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Describe the item you are selling*',
                   ),
-                ),
-                Container(
-                  height: 1.5,
-                  width: double.infinity,
-                  color: Colors.grey,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5),
-                      child: Text(
-                        "0/5000",
-                        style: TextStyle(
-                          color: black,
-                          fontSize: 10,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                // Add Phtos Section
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Center(
+                  Center(
                     child: Text(
-                      "Add Photo",
+                      "Please add no more then 8 photos here.",
                       style: TextStyle(
                         color: black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
+                        fontSize: 12,
                         fontFamily: 'RobotoCondenced',
-                        decoration: TextDecoration.underline,
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    InkWell(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          const Padding(
-                            padding: EdgeInsets.only(right: 4),
-                            child: Icon(
-                              Icons.photo_camera,
-                              size: 30,
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      InkWell(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            const Padding(
+                              padding: EdgeInsets.only(right: 4),
+                              child: Icon(
+                                Icons.photo_camera,
+                                size: 30,
+                              ),
                             ),
-                          ),
-                          Text(
-                            'Click',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: black,
-                              fontWeight: FontWeight.bold,
+                            Text(
+                              'Click',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: black,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
+                        onTap: () async {
+                          // ignore: avoid_print
+                          print('Click');
+                          await openCamera();
+                        },
                       ),
-                      onTap: () {
-                        // ignore: avoid_print
-                        print('Click');
+                      InkWell(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            const Padding(
+                              padding: EdgeInsets.only(right: 4),
+                              child: Icon(
+                                Icons.add_photo_alternate,
+                                size: 30,
+                              ),
+                            ),
+                            Text(
+                              'Photo',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        onTap: () async {
+                          imagefiles = await openGallery();
+                          //  print(imagefiles![0].path);
+                          setState(() {});
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  // Selected Images from Gallery
+                  imagefiles != null
+                      ? Wrap(
+                          children: imagefiles!.map((imageone) {
+                            return Card(
+                              child: SizedBox(
+                                height: 125,
+                                width: 84,
+                                child: Image.file(File(imageone.path)),
+                              ),
+                            );
+                          }).toList(),
+                        )
+                      : Container(),
+
+                  const SizedBox(height: 20),
+                  Container(
+                    width: 380,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: blue,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: CupertinoButton(
+                      child: Text(
+                        "Done",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: white,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'RobotoCondensed',
+                        ),
+                      ),
+                      onPressed: () {
+                        bool imageEmpty = false;
+                        if (imagefiles?.isNotEmpty.toString() == "null") {
+                          imageEmpty = false;
+                        } else if (imagefiles?.isNotEmpty.toString() ==
+                            "true") {
+                          imageEmpty = true;
+                        }
+
+                        if (_formKey.currentState!.validate() && !imageEmpty) {
+                          int _price = int.parse(_priceController.text);
+                          createMobileAd(
+                              arguments['category'],
+                              _brandController.text,
+                              _price,
+                              _locationController.text,
+                              _adTitleController.text,
+                              _descriptionController.text, []);
+                          Navigator.pop(context);
+                        } else if (_formKey.currentState!.validate() &&
+                            imageEmpty) {
+                          int _price = int.parse(_priceController.text);
+                          createMobileAd(
+                              arguments['category'],
+                              _brandController.text,
+                              _price,
+                              _locationController.text,
+                              _adTitleController.text,
+                              _descriptionController.text,
+                              imagefiles!);
+                          Navigator.pop(context);
+                        }
                       },
                     ),
-                    InkWell(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          const Padding(
-                            padding: EdgeInsets.only(right: 4),
-                            child: Icon(
-                              Icons.add_photo_alternate,
-                              size: 30,
-                            ),
-                          ),
-                          Text(
-                            'Photo',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                      onTap: () {
-                        // ignore: avoid_print
-                        print('Photo');
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 40),
-                Container(
-                  width: 380,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: blue,
-                    borderRadius: BorderRadius.circular(15),
                   ),
-                  child: CupertinoButton(
-                    child: Text(
-                      "Done",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: white,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'RobotoCondensed',
-                      ),
-                    ),
-                    onPressed: () {},
-                  ),
-                ),
-                const SizedBox(height: 40),
-              ],
+                  const SizedBox(height: 40),
+                ],
+              ),
             ),
           )
         ],

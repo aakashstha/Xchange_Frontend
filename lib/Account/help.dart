@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xchange_frontend/theme_colors.dart';
+import 'package:xchange_frontend/firstPages/theme_colors.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Help extends StatefulWidget {

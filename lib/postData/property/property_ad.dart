@@ -2,23 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:xchange_frontend/postData/car_bike/post_car_url.dart';
+import 'package:xchange_frontend/postData/property/post_property_url.dart';
 import 'package:xchange_frontend/postData/gall_cam.dart';
 import 'dart:io';
 
-class CarAd extends StatefulWidget {
-  const CarAd({Key? key}) : super(key: key);
+class PropertyAd extends StatefulWidget {
+  const PropertyAd({Key? key}) : super(key: key);
 
   @override
   _CarAdState createState() => _CarAdState();
 }
 
-class _CarAdState extends State<CarAd> {
-  final TextEditingController _brandController = TextEditingController();
-  final TextEditingController _priceController = TextEditingController();
-  final TextEditingController _yearController = TextEditingController();
-  final TextEditingController _kmDrivenController = TextEditingController();
+class _CarAdState extends State<PropertyAd> {
+  final TextEditingController _typeController = TextEditingController();
+  final TextEditingController _bedroomsController = TextEditingController();
+  final TextEditingController _bathroomsController = TextEditingController();
+  final TextEditingController _furnishingController = TextEditingController();
+  final TextEditingController _listedByController = TextEditingController();
+  final TextEditingController _totalFloorsController = TextEditingController();
+  final TextEditingController _areaController = TextEditingController();
+  final TextEditingController _facingController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
   final TextEditingController _adTitleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   List<XFile>? imagefiles;
@@ -27,6 +32,7 @@ class _CarAdState extends State<CarAd> {
   @override
   Widget build(BuildContext context) {
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
+    // ignore: avoid_print
     print(arguments);
 
     return Scaffold(
@@ -79,13 +85,13 @@ class _CarAdState extends State<CarAd> {
               child: Column(
                 children: [
                   TextFormField(
-                    controller: _brandController,
+                    controller: _typeController,
                     decoration: const InputDecoration(
-                      hintText: 'Brand*',
+                      hintText: 'Type*',
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Please enter brand';
+                        return 'Please enter type';
                       }
                       return null;
                     },
@@ -96,6 +102,150 @@ class _CarAdState extends State<CarAd> {
                     color: Colors.grey,
                   ),
                   const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _bedroomsController,
+                    decoration: const InputDecoration(
+                      hintText: 'Bedrooms*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter bedrooms';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _bathroomsController,
+                    decoration: const InputDecoration(
+                      hintText: 'Bathrooms*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter bathrooms';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _furnishingController,
+                    decoration: const InputDecoration(
+                      hintText: 'Furnishing*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter furnishing! Yes || No';
+                      }
+                      return null;
+                    },
+                  ),
+
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _listedByController,
+                    decoration: const InputDecoration(
+                      hintText: 'Listed by*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter listed by';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _totalFloorsController,
+                    decoration: const InputDecoration(
+                      hintText: 'Total Floors*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter total floors';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _areaController,
+                    decoration: const InputDecoration(
+                      hintText: 'Area*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter area';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _facingController,
+                    decoration: const InputDecoration(
+                      hintText: 'Facing*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter facing! East || West || North || South';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _locationController,
+                    decoration: const InputDecoration(
+                      hintText: 'Location*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter location';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
                   TextFormField(
                     controller: _priceController,
                     decoration: const InputDecoration(
@@ -115,63 +265,6 @@ class _CarAdState extends State<CarAd> {
                     width: double.infinity,
                     color: Colors.grey,
                   ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    controller: _yearController,
-                    decoration: const InputDecoration(
-                      hintText: 'Year*',
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter year';
-                      }
-                      return null;
-                    },
-                  ),
-                  Container(
-                    height: 1.5,
-                    width: double.infinity,
-                    color: Colors.grey,
-                  ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    controller: _kmDrivenController,
-                    decoration: const InputDecoration(
-                      hintText: 'KM driven*',
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter KM driven';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Please enter valid KM driven';
-                      }
-                      return null;
-                    },
-                  ),
-
-                  Container(
-                    height: 1.5,
-                    width: double.infinity,
-                    color: Colors.grey,
-                  ),
-                  TextFormField(
-                    controller: _locationController,
-                    decoration: const InputDecoration(
-                      hintText: 'Location*',
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter location';
-                      }
-                      return null;
-                    },
-                  ),
-                  Container(
-                    height: 1.5,
-                    width: double.infinity,
-                    color: Colors.grey,
-                  ),
-                  const SizedBox(height: 10),
                   TextFormField(
                     controller: _adTitleController,
                     maxLength: 80,
@@ -330,16 +423,6 @@ class _CarAdState extends State<CarAd> {
                         ),
                       ),
                       onPressed: () {
-                        // print(_brandController.text);
-                        // print(_priceController.text);
-                        // print(_yearController.text);
-                        // print(_kmDrivenController.text);
-                        // print(_locationController.text);
-                        // print(_adTitleController.text);
-                        // print(_descriptionController.text);
-
-                        // print(imagefiles?.isNotEmpty.toString());
-
                         bool imageEmpty = false;
                         if (imagefiles?.isNotEmpty.toString() == "null") {
                           imageEmpty = false;
@@ -351,31 +434,44 @@ class _CarAdState extends State<CarAd> {
 
                         if (_formKey.currentState!.validate() && !imageEmpty) {
                           int _price = int.parse(_priceController.text);
-                          int _kmDriven = int.parse(_kmDrivenController.text);
-                          createCarAd(
-                              arguments['category'],
-                              _brandController.text,
-                              _price,
-                              _yearController.text,
-                              _kmDriven,
-                              _locationController.text,
-                              _adTitleController.text,
-                              _descriptionController.text, []);
+
+                          createPropertyAd(
+                            arguments['category'],
+                            _typeController.text,
+                            _bedroomsController.text,
+                            _bathroomsController.text,
+                            _furnishingController.text,
+                            _listedByController.text,
+                            _totalFloorsController.text,
+                            _areaController.text,
+                            _facingController.text,
+                            _locationController.text,
+                            _price,
+                            _adTitleController.text,
+                            _descriptionController.text,
+                            [],
+                          );
                           Navigator.pop(context);
                         } else if (_formKey.currentState!.validate() &&
                             imageEmpty) {
                           int _price = int.parse(_priceController.text);
-                          int _kmDriven = int.parse(_kmDrivenController.text);
-                          createCarAd(
-                              arguments['category'],
-                              _brandController.text,
-                              _price,
-                              _yearController.text,
-                              _kmDriven,
-                              _locationController.text,
-                              _adTitleController.text,
-                              _descriptionController.text,
-                              imagefiles!);
+
+                          createPropertyAd(
+                            arguments['category'],
+                            _typeController.text,
+                            _bedroomsController.text,
+                            _bathroomsController.text,
+                            _furnishingController.text,
+                            _listedByController.text,
+                            _totalFloorsController.text,
+                            _areaController.text,
+                            _facingController.text,
+                            _locationController.text,
+                            _price,
+                            _adTitleController.text,
+                            _descriptionController.text,
+                            imagefiles!,
+                          );
                           Navigator.pop(context);
                         }
                       },

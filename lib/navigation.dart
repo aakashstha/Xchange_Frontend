@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:xchange_frontend/login.dart';
-import 'package:xchange_frontend/theme_colors.dart';
-import 'package:xchange_frontend/home_navigation.dart';
-import 'package:xchange_frontend/signup.dart';
-import 'package:xchange_frontend/forgot_password.dart';
+import 'package:xchange_frontend/firstPages/login.dart';
+import 'package:xchange_frontend/firstPages/theme_colors.dart';
+import 'package:xchange_frontend/firstPages/home_navigation.dart';
+import 'package:xchange_frontend/firstPages/signup.dart';
+import 'package:xchange_frontend/firstPages/forgot_password.dart';
 import 'package:xchange_frontend/Home/home.dart';
 import 'package:xchange_frontend/Home/sell.dart';
 import 'package:xchange_frontend/Home/my_ads.dart';
 import 'package:xchange_frontend/Home/account.dart';
 import 'package:xchange_frontend/Home/Others/more_category.dart';
-import 'package:xchange_frontend/postData/car_bike/car_ad.dart';
-import 'package:xchange_frontend/postData/mobile/mobile_ad.dart';
 import 'package:xchange_frontend/account/edit_profile.dart';
 import 'package:xchange_frontend/account/settings.dart';
 import 'package:xchange_frontend/account/private_information.dart';
@@ -28,6 +26,12 @@ import 'package:xchange_frontend/fetchData/jobs/jobs_one.dart';
 import 'package:xchange_frontend/fetchData/rooms/rooms_one.dart';
 import 'package:xchange_frontend/fetchData/books_and_Others/books_others.dart';
 import 'package:xchange_frontend/fetchData/all_view_image.dart';
+import 'package:xchange_frontend/postData/car_bike/car_ad.dart';
+import 'package:xchange_frontend/postData/mobile/mobile_ad.dart';
+import 'package:xchange_frontend/postData/property/property_ad.dart';
+import 'package:xchange_frontend/postData/job/job_ad.dart';
+import 'package:xchange_frontend/postData/room/room_ad.dart';
+import 'package:xchange_frontend/postData/book_and_others/book_others_ad.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -63,8 +67,6 @@ class MyApp extends StatelessWidget {
 
         // Others
         '/moreCategory': (context) => const MoreCategory(),
-        '/placeCarAd': (context) => const CarAd(),
-        '/placeMobileAd': (context) => const MobileAd(),
 
         // Acount
         '/editProfile': (context) => const EditProfile(),
@@ -86,6 +88,14 @@ class MyApp extends StatelessWidget {
         '/fetchOneRoomAd': (context) => const RoomOneAd(),
         '/fetchOneBookAd': (context) => const BookAndAllOneAd(),
         '/fetchAllImage': (context) => const ImageOnly(),
+
+        // Post Data
+        '/placeCarAd': (context) => const CarAd(),
+        '/placeMobileAd': (context) => const MobileAd(),
+        '/placePropertyAd': (context) => const PropertyAd(),
+        '/placeJobAd': (context) => const JobAd(),
+        '/placeRoomAd': (context) => const RoomAd(),
+        '/placeBookAndOthersAd': (context) => const BookAndOthersAd(),
       },
       home: const Login(),
     );

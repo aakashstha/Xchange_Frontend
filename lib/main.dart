@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xchange_frontend/login.dart';
 import 'package:xchange_frontend/navigation.dart';
-import 'package:xchange_frontend/postData/test.dart';
-import 'package:xchange_frontend/postData/test2.dart';
 // Same Category
 
 // 1. cars, bikes

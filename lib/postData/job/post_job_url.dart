@@ -1,16 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 
-void createCarAd(
-    String brand,
-    int price,
-    String year,
-    String kmDriven,
+void createJobAd(
+    String arguments,
+    String salaryPeriod,
+    String positionType,
+    String salaryFrom,
+    String salaryTo,
     String location,
+    int price,
     String adTitle,
     String description,
     List<XFile> file) async {
-  const String carEndPoint = 'http://localhost:8000/cars';
+  String carEndPoint = 'http://localhost:8000/' + arguments;
 
   List images = [];
   for (var element in file) {
@@ -19,13 +21,14 @@ void createCarAd(
     }
   }
   Map<String, dynamic> mapData = {
-    "brand": "Tesla112233",
-    "price": "500000011223344",
-    "year": "2010",
-    "kmDriven": "5000",
-    "adTitle": "Tesla A45112233344",
-    "description": "This is awesome car after apple very good",
-    "location": "Biratnagar",
+    "salaryPeriod": salaryPeriod,
+    "positionType": positionType,
+    "salaryFrom": salaryFrom,
+    "salaryTo": salaryTo,
+    "location": location,
+    "price": price,
+    "adTitle": adTitle,
+    "description": description,
     "image": images
   };
   // print(images);

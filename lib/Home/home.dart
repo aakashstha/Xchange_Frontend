@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xchange_frontend/theme_colors.dart';
+import 'package:xchange_frontend/firstPages/theme_colors.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

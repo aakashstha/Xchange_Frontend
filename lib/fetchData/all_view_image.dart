@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xchange_frontend/theme_colors.dart';
+import 'package:xchange_frontend/firstPages/theme_colors.dart';
 
 class ImageOnly extends StatelessWidget {
   const ImageOnly({Key? key}) : super(key: key);
@@ -21,9 +21,11 @@ class ImageOnly extends StatelessWidget {
                 itemBuilder: (context, pagePosition) {
                   return Column(
                     children: [
-                      Container(
-                        margin: const EdgeInsets.symmetric(vertical: 15),
-                        child: Image.network(argumentImage[pagePosition]),
+                      FittedBox(
+                        child: Image.network(
+                          argumentImage[pagePosition],
+                        ),
+                        fit: BoxFit.fill,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 375, top: 10),

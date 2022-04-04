@@ -2,22 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:xchange_frontend/postData/car_bike/post_car_url.dart';
+import 'package:xchange_frontend/postData/book_and_others/post_book_others_url.dart';
 import 'package:xchange_frontend/postData/gall_cam.dart';
 import 'dart:io';
 
-class CarAd extends StatefulWidget {
-  const CarAd({Key? key}) : super(key: key);
+class BookAndOthersAd extends StatefulWidget {
+  const BookAndOthersAd({Key? key}) : super(key: key);
 
   @override
   _CarAdState createState() => _CarAdState();
 }
 
-class _CarAdState extends State<CarAd> {
-  final TextEditingController _brandController = TextEditingController();
+class _CarAdState extends State<BookAndOthersAd> {
   final TextEditingController _priceController = TextEditingController();
-  final TextEditingController _yearController = TextEditingController();
-  final TextEditingController _kmDrivenController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController _adTitleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -79,24 +76,6 @@ class _CarAdState extends State<CarAd> {
               child: Column(
                 children: [
                   TextFormField(
-                    controller: _brandController,
-                    decoration: const InputDecoration(
-                      hintText: 'Brand*',
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter brand';
-                      }
-                      return null;
-                    },
-                  ),
-                  Container(
-                    height: 1.5,
-                    width: double.infinity,
-                    color: Colors.grey,
-                  ),
-                  const SizedBox(height: 10),
-                  TextFormField(
                     controller: _priceController,
                     decoration: const InputDecoration(
                       hintText: 'Price*',
@@ -116,44 +95,7 @@ class _CarAdState extends State<CarAd> {
                     color: Colors.grey,
                   ),
                   const SizedBox(height: 10),
-                  TextFormField(
-                    controller: _yearController,
-                    decoration: const InputDecoration(
-                      hintText: 'Year*',
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter year';
-                      }
-                      return null;
-                    },
-                  ),
-                  Container(
-                    height: 1.5,
-                    width: double.infinity,
-                    color: Colors.grey,
-                  ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    controller: _kmDrivenController,
-                    decoration: const InputDecoration(
-                      hintText: 'KM driven*',
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter KM driven';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Please enter valid KM driven';
-                      }
-                      return null;
-                    },
-                  ),
 
-                  Container(
-                    height: 1.5,
-                    width: double.infinity,
-                    color: Colors.grey,
-                  ),
                   TextFormField(
                     controller: _locationController,
                     decoration: const InputDecoration(
@@ -166,6 +108,7 @@ class _CarAdState extends State<CarAd> {
                       return null;
                     },
                   ),
+
                   Container(
                     height: 1.5,
                     width: double.infinity,
@@ -330,16 +273,6 @@ class _CarAdState extends State<CarAd> {
                         ),
                       ),
                       onPressed: () {
-                        // print(_brandController.text);
-                        // print(_priceController.text);
-                        // print(_yearController.text);
-                        // print(_kmDrivenController.text);
-                        // print(_locationController.text);
-                        // print(_adTitleController.text);
-                        // print(_descriptionController.text);
-
-                        // print(imagefiles?.isNotEmpty.toString());
-
                         bool imageEmpty = false;
                         if (imagefiles?.isNotEmpty.toString() == "null") {
                           imageEmpty = false;
@@ -347,17 +280,12 @@ class _CarAdState extends State<CarAd> {
                             "true") {
                           imageEmpty = true;
                         }
-                        // print(imageEmpty);
 
                         if (_formKey.currentState!.validate() && !imageEmpty) {
                           int _price = int.parse(_priceController.text);
-                          int _kmDriven = int.parse(_kmDrivenController.text);
-                          createCarAd(
+                          createBookAndOthersAd(
                               arguments['category'],
-                              _brandController.text,
                               _price,
-                              _yearController.text,
-                              _kmDriven,
                               _locationController.text,
                               _adTitleController.text,
                               _descriptionController.text, []);
@@ -365,17 +293,14 @@ class _CarAdState extends State<CarAd> {
                         } else if (_formKey.currentState!.validate() &&
                             imageEmpty) {
                           int _price = int.parse(_priceController.text);
-                          int _kmDriven = int.parse(_kmDrivenController.text);
-                          createCarAd(
-                              arguments['category'],
-                              _brandController.text,
-                              _price,
-                              _yearController.text,
-                              _kmDriven,
-                              _locationController.text,
-                              _adTitleController.text,
-                              _descriptionController.text,
-                              imagefiles!);
+                          createBookAndOthersAd(
+                            arguments['category'],
+                            _price,
+                            _locationController.text,
+                            _adTitleController.text,
+                            _descriptionController.text,
+                            imagefiles!,
+                          );
                           Navigator.pop(context);
                         }
                       },

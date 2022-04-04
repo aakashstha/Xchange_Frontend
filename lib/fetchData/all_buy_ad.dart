@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:xchange_frontend/theme_colors.dart';
+import 'package:xchange_frontend/firstPages/theme_colors.dart';
 
 class AllBuyAds extends StatelessWidget {
   const AllBuyAds({Key? key}) : super(key: key);

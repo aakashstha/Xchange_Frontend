@@ -2,23 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:xchange_frontend/postData/car_bike/post_car_url.dart';
+import 'package:xchange_frontend/postData/room/post_room_url.dart';
 import 'package:xchange_frontend/postData/gall_cam.dart';
 import 'dart:io';
 
-class CarAd extends StatefulWidget {
-  const CarAd({Key? key}) : super(key: key);
+class RoomAd extends StatefulWidget {
+  const RoomAd({Key? key}) : super(key: key);
 
   @override
   _CarAdState createState() => _CarAdState();
 }
 
-class _CarAdState extends State<CarAd> {
-  final TextEditingController _brandController = TextEditingController();
-  final TextEditingController _priceController = TextEditingController();
-  final TextEditingController _yearController = TextEditingController();
-  final TextEditingController _kmDrivenController = TextEditingController();
+class _CarAdState extends State<RoomAd> {
+  final TextEditingController _totalRoomsController = TextEditingController();
+  final TextEditingController _kitchenController = TextEditingController();
+  final TextEditingController _toiletController = TextEditingController();
+  final TextEditingController _waterSupplyController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
   final TextEditingController _adTitleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   List<XFile>? imagefiles;
@@ -79,13 +80,87 @@ class _CarAdState extends State<CarAd> {
               child: Column(
                 children: [
                   TextFormField(
-                    controller: _brandController,
+                    controller: _totalRoomsController,
                     decoration: const InputDecoration(
-                      hintText: 'Brand*',
+                      hintText: 'Total rooms*',
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Please enter brand';
+                        return 'Please enter total rooms';
+                      } else if (int.tryParse(value) == null) {
+                        return 'Please enter valid total rooms';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _kitchenController,
+                    decoration: const InputDecoration(
+                      hintText: 'Kitchen*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter kitchen! Yes || No';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _toiletController,
+                    decoration: const InputDecoration(
+                      hintText: 'Toilet*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter toilet! Yes || No';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _waterSupplyController,
+                    decoration: const InputDecoration(
+                      hintText: 'Water Supply*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter water supply! Yes || No';
+                      }
+                      return null;
+                    },
+                  ),
+
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  TextFormField(
+                    controller: _locationController,
+                    decoration: const InputDecoration(
+                      hintText: 'Location*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter location';
                       }
                       return null;
                     },
@@ -106,62 +181,6 @@ class _CarAdState extends State<CarAd> {
                         return 'Please enter price';
                       } else if (int.tryParse(value) == null) {
                         return 'Please enter valid price';
-                      }
-                      return null;
-                    },
-                  ),
-                  Container(
-                    height: 1.5,
-                    width: double.infinity,
-                    color: Colors.grey,
-                  ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    controller: _yearController,
-                    decoration: const InputDecoration(
-                      hintText: 'Year*',
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter year';
-                      }
-                      return null;
-                    },
-                  ),
-                  Container(
-                    height: 1.5,
-                    width: double.infinity,
-                    color: Colors.grey,
-                  ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    controller: _kmDrivenController,
-                    decoration: const InputDecoration(
-                      hintText: 'KM driven*',
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter KM driven';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Please enter valid KM driven';
-                      }
-                      return null;
-                    },
-                  ),
-
-                  Container(
-                    height: 1.5,
-                    width: double.infinity,
-                    color: Colors.grey,
-                  ),
-                  TextFormField(
-                    controller: _locationController,
-                    decoration: const InputDecoration(
-                      hintText: 'Location*',
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter location';
                       }
                       return null;
                     },
@@ -330,16 +349,6 @@ class _CarAdState extends State<CarAd> {
                         ),
                       ),
                       onPressed: () {
-                        // print(_brandController.text);
-                        // print(_priceController.text);
-                        // print(_yearController.text);
-                        // print(_kmDrivenController.text);
-                        // print(_locationController.text);
-                        // print(_adTitleController.text);
-                        // print(_descriptionController.text);
-
-                        // print(imagefiles?.isNotEmpty.toString());
-
                         bool imageEmpty = false;
                         if (imagefiles?.isNotEmpty.toString() == "null") {
                           imageEmpty = false;
@@ -351,31 +360,38 @@ class _CarAdState extends State<CarAd> {
 
                         if (_formKey.currentState!.validate() && !imageEmpty) {
                           int _price = int.parse(_priceController.text);
-                          int _kmDriven = int.parse(_kmDrivenController.text);
-                          createCarAd(
-                              arguments['category'],
-                              _brandController.text,
-                              _price,
-                              _yearController.text,
-                              _kmDriven,
-                              _locationController.text,
-                              _adTitleController.text,
-                              _descriptionController.text, []);
+                          int _totalRooms =
+                              int.parse(_totalRoomsController.text);
+                          createRoomAd(
+                            arguments['category'],
+                            _totalRooms,
+                            _kitchenController.text,
+                            _toiletController.text,
+                            _waterSupplyController.text,
+                            _locationController.text,
+                            _price,
+                            _adTitleController.text,
+                            _descriptionController.text,
+                            [],
+                          );
                           Navigator.pop(context);
                         } else if (_formKey.currentState!.validate() &&
                             imageEmpty) {
                           int _price = int.parse(_priceController.text);
-                          int _kmDriven = int.parse(_kmDrivenController.text);
-                          createCarAd(
-                              arguments['category'],
-                              _brandController.text,
-                              _price,
-                              _yearController.text,
-                              _kmDriven,
-                              _locationController.text,
-                              _adTitleController.text,
-                              _descriptionController.text,
-                              imagefiles!);
+                          int _totalRooms =
+                              int.parse(_totalRoomsController.text);
+                          createRoomAd(
+                            arguments['category'],
+                            _totalRooms,
+                            _kitchenController.text,
+                            _toiletController.text,
+                            _waterSupplyController.text,
+                            _locationController.text,
+                            _price,
+                            _adTitleController.text,
+                            _descriptionController.text,
+                            imagefiles!,
+                          );
                           Navigator.pop(context);
                         }
                       },

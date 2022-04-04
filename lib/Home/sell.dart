@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xchange_frontend/theme_colors.dart';
+import 'package:xchange_frontend/firstPages/theme_colors.dart';
 
 class Sell extends StatefulWidget {
   const Sell({Key? key}) : super(key: key);
@@ -132,13 +132,14 @@ class _SellState extends State<Sell> {
                   Icon(
                     Icons.chevron_right,
                     size: 26,
-                    color: black, 
+                    color: black,
                   )
                 ],
               ),
             ),
             onTap: () {
-              Navigator.pushNamed(context, "/placeCarAd");
+              Navigator.pushNamed(context, "/placeCarAd",
+                  arguments: {'category': 'cars'});
             },
           ),
           Padding(
@@ -192,8 +193,8 @@ class _SellState extends State<Sell> {
               ),
             ),
             onTap: () {
-              // ignore: avoid_print
-              print("Bikes");
+              Navigator.pushNamed(context, "/placeCarAd",
+                  arguments: {'category': 'bikes'});
             },
           ),
           Padding(
@@ -247,8 +248,8 @@ class _SellState extends State<Sell> {
               ),
             ),
             onTap: () {
-              // ignore: avoid_print
-              print("Properties");
+              Navigator.pushNamed(context, "/placePropertyAd",
+                  arguments: {'category': 'properties'});
             },
           ),
           Padding(
@@ -302,8 +303,8 @@ class _SellState extends State<Sell> {
               ),
             ),
             onTap: () {
-              // ignore: avoid_print
-              print("Jobs");
+              Navigator.pushNamed(context, "/placeJobAd",
+                  arguments: {'category': 'jobs'});
             },
           ),
           Padding(
@@ -357,8 +358,8 @@ class _SellState extends State<Sell> {
               ),
             ),
             onTap: () {
-              // ignore: avoid_print
-              print("Rooms");
+              Navigator.pushNamed(context, "/placeRoomAd",
+                  arguments: {'category': 'rooms'});
             },
           ),
           Padding(
@@ -412,8 +413,8 @@ class _SellState extends State<Sell> {
               ),
             ),
             onTap: () {
-              // ignore: avoid_print
-              print("Books");
+              Navigator.pushNamed(context, "/placeBookAndOthersAd",
+                  arguments: {'category': 'books'});
             },
           ),
           Padding(
@@ -467,8 +468,8 @@ class _SellState extends State<Sell> {
               ),
             ),
             onTap: () {
-              // ignore: avoid_print
-              print("Services");
+              Navigator.pushNamed(context, "/placeBookAndOthersAd",
+                  arguments: {'category': 'services'});
             },
           ),
           Padding(
@@ -522,8 +523,8 @@ class _SellState extends State<Sell> {
               ),
             ),
             onTap: () {
-              // ignore: avoid_print
-              print("Electronics");
+              Navigator.pushNamed(context, "/placeBookAndOthersAd",
+                  arguments: {'category': 'electronics'});
             },
           ),
           Padding(
@@ -577,7 +578,8 @@ class _SellState extends State<Sell> {
               ),
             ),
             onTap: () {
-              Navigator.pushNamed(context, "/placeMobileAd");
+              Navigator.pushNamed(context, "/placeMobileAd",
+                  arguments: {'category': 'mobiles'});
             },
           ),
           Padding(
@@ -631,8 +633,8 @@ class _SellState extends State<Sell> {
               ),
             ),
             onTap: () {
-              // ignore: avoid_print
-              print("Musical Instruments");
+              Navigator.pushNamed(context, "/placeBookAndOthersAd",
+                  arguments: {'category': 'musicInstruments'});
             },
           ),
           Padding(
