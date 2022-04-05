@@ -12,7 +12,7 @@ void createRoomAd(
     String adTitle,
     String description,
     List<XFile> file) async {
-  String carEndPoint = 'http://localhost:8000/' + arguments;
+  String carEndPoint = 'http://localhost:8000/products';
 
   List images = [];
   for (var element in file) {
@@ -26,6 +26,7 @@ void createRoomAd(
     "toilet": toilet,
     "waterSupply": waterSupply,
     "location": location,
+    "category": arguments,
     "price": price,
     "adTitle": adTitle,
     "description": description,

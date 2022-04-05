@@ -9,19 +9,21 @@ class AllBuyAds extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
-    // print(arguments['category']);
+    print(arguments['category']);
 
-    final response =
-        Uri.parse("http://localhost:8000/" + arguments['category']);
+    final response = Uri.parse(
+        "http://localhost:8000/products/categorical/" + arguments['category']);
     Future<List<dynamic>> fetchMobileAds() async {
       var result = await http.get(response);
 
-      return jsonDecode(result.body)[arguments['category']];
+      return jsonDecode(result.body)['products'];
     }
 
     String appBarText = "All " +
         arguments['category'][0].toString().toUpperCase() +
         arguments['category'].substring(1);
+
+    print(appBarText);
 
     return Scaffold(
       appBar: AppBar(

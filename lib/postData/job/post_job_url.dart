@@ -12,7 +12,7 @@ void createJobAd(
     String adTitle,
     String description,
     List<XFile> file) async {
-  String carEndPoint = 'http://localhost:8000/' + arguments;
+  String carEndPoint = 'http://localhost:8000/products';
 
   List images = [];
   for (var element in file) {
@@ -27,6 +27,7 @@ void createJobAd(
     "salaryTo": salaryTo,
     "location": location,
     "price": price,
+    "category": arguments,
     "adTitle": adTitle,
     "description": description,
     "image": images

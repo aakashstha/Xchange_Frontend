@@ -54,6 +54,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       routes: <String, WidgetBuilder>{
+        // First Pages
         '/login': (context) => const Login(),
         '/signup': (context) => const Signup(),
         '/forgotPassword': (context) => const ForgotPassword(),

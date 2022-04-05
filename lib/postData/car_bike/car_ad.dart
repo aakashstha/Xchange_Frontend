@@ -148,7 +148,6 @@ class _CarAdState extends State<CarAd> {
                       return null;
                     },
                   ),
-
                   Container(
                     height: 1.5,
                     width: double.infinity,

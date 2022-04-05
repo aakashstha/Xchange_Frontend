@@ -11,7 +11,7 @@ void createCarAd(
     String adTitle,
     String description,
     List<XFile> file) async {
-  String carEndPoint = 'http://localhost:8000/' + arguments;
+  String carEndPoint = 'http://localhost:8000/products';
 
   List images = [];
   for (var element in file) {
@@ -27,6 +27,7 @@ void createCarAd(
     "adTitle": adTitle,
     "description": description,
     "location": location,
+    "category": arguments,
     "image": images
   };
   // print(images);

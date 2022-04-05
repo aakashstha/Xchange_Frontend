@@ -21,30 +21,34 @@ class PropertyOneAd extends StatelessWidget {
               height: 240,
               child: Stack(
                 children: [
-                  InkWell(
-                    child: arguments['images'].isEmpty
-                        ? Container(
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage("./images/nono.png"),
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 30),
+                    child: InkWell(
+                      child: arguments['images'].isEmpty
+                          ? Container(
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: AssetImage("./images/nono.png"),
+                                ),
                               ),
-                            ),
-                          )
-                        : Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: NetworkImage(
-                                  arguments['images'][0].toString(),
+                            )
+                          : Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: NetworkImage(
+                                    arguments['images'][0].toString(),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                    onTap: () {
-                      Navigator.pushNamed(context, "/fetchAllImage",
-                          arguments: arguments['images']);
-                    },
+                      onTap: () {
+                        Navigator.pushNamed(context, "/fetchAllImage",
+                            arguments: arguments['images']);
+                      },
+                    ),
                   ),
                   IconButton(
                     icon: const Icon(
@@ -56,7 +60,7 @@ class PropertyOneAd extends StatelessWidget {
                     },
                   ),
                   Positioned(
-                    left: 350,
+                    left: 360,
                     top: 210,
                     child: Text(
                       arguments['images'].length == 0
