@@ -6,25 +6,39 @@ import 'package:xchange_frontend/postData/book_and_others/post_book_others_url.d
 import 'package:xchange_frontend/postData/gall_cam.dart';
 import 'dart:io';
 
-class BookAndOthersAd extends StatefulWidget {
-  const BookAndOthersAd({Key? key}) : super(key: key);
+class UpdateBookAndOthersAd extends StatefulWidget {
+  const UpdateBookAndOthersAd({Key? key}) : super(key: key);
 
   @override
   _CarAdState createState() => _CarAdState();
 }
 
-class _CarAdState extends State<BookAndOthersAd> {
+class _CarAdState extends State<UpdateBookAndOthersAd> {
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController _adTitleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   List<XFile>? imagefiles;
   final _formKey = GlobalKey<FormState>();
+  bool updateOnce = true;
+  int updateImagefiles = 0;
 
   @override
   Widget build(BuildContext context) {
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
     // print(arguments);
+    String _id = arguments['_id'];
+
+    // this condition actually help us to update the field of our ads
+    if (updateOnce) {
+      _priceController.text = arguments['price'].toString();
+      _locationController.text = arguments['location'];
+      _adTitleController.text = arguments['adTitle'];
+      _descriptionController.text = arguments['description'];
+      updateImagefiles = arguments['images'].length;
+
+      updateOnce = false;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -42,7 +56,7 @@ class _CarAdState extends State<BookAndOthersAd> {
         automaticallyImplyLeading: true,
         backgroundColor: HomeColors.appBar,
         title: Text(
-          'Place Your Ad',
+          'Update Your Ad',
           style: TextStyle(
             fontSize: 18,
             color: black,
@@ -239,6 +253,60 @@ class _CarAdState extends State<BookAndOthersAd> {
                     ],
                   ),
                   const SizedBox(height: 20),
+                  Center(
+                    child: Text(
+                      "Old images",
+                      style: TextStyle(
+                        color: black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        fontFamily: 'RobotoCondenced',
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+
+                  updateImagefiles > 0
+                      ? Row(
+                          children: [
+                            Expanded(
+                              child: GridView.count(
+                                shrinkWrap: true,
+                                crossAxisCount: 4,
+                                children: List.generate(
+                                    arguments['images'].length, (index) {
+                                  return Card(
+                                    child: SizedBox(
+                                      height: 125,
+                                      width: 84,
+                                      child: Image.network(
+                                        arguments['images'][index],
+                                      ),
+                                    ),
+                                  );
+                                }),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Container(),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Center(
+                      child: Text(
+                        "Choose new images",
+                        style: TextStyle(
+                          color: black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          fontFamily: 'RobotoCondenced',
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                  ),
+
                   // Selected Images from Gallery
                   imagefiles != null
                       ? Wrap(
@@ -264,7 +332,7 @@ class _CarAdState extends State<BookAndOthersAd> {
                     ),
                     child: CupertinoButton(
                       child: Text(
-                        "Done",
+                        "Update",
                         style: TextStyle(
                           fontSize: 16,
                           color: white,
@@ -283,7 +351,8 @@ class _CarAdState extends State<BookAndOthersAd> {
 
                         if (_formKey.currentState!.validate() && !imageEmpty) {
                           int _price = int.parse(_priceController.text);
-                          createBookAndOthersAd(
+                          updateBookAndOthersAd(
+                              _id,
                               arguments['category'],
                               _price,
                               _locationController.text,
@@ -293,7 +362,8 @@ class _CarAdState extends State<BookAndOthersAd> {
                         } else if (_formKey.currentState!.validate() &&
                             imageEmpty) {
                           int _price = int.parse(_priceController.text);
-                          createBookAndOthersAd(
+                          updateBookAndOthersAd(
+                            _id,
                             arguments['category'],
                             _price,
                             _locationController.text,

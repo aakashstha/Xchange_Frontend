@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class Home extends StatefulWidget { 
+class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
@@ -11,6 +12,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    // String arguments = ModalRoute.of(context)?.settings.arguments as String;
+
+    // print(arguments);
+
     return ListView(
       children: [
         const SizedBox(height: 30),
@@ -338,7 +343,7 @@ class _HomeState extends State<Home> {
             "Recommendation for You",
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 16, 
+              fontSize: 16,
               color: black,
               fontFamily: 'RobotoCondensed',
               decoration: TextDecoration.underline,

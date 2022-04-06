@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
+import 'package:xchange_frontend/postData/car_bike/post_car_url.dart';
 
 class CarOneAd extends StatelessWidget {
   const CarOneAd({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
+    List argumentData = ModalRoute.of(context)?.settings.arguments as List;
+    Map arguments = argumentData[0];
+    var showUpdateDeleteButton = argumentData[1];
+
+    // print(arguments["_id"]);
 
     return Scaffold(
       body: Container(
@@ -197,6 +202,72 @@ class CarOneAd extends StatelessWidget {
                 fontFamily: 'RobotoCondensed',
               ),
             ),
+            const SizedBox(height: 40),
+
+            // For Loged In Users
+            showUpdateDeleteButton
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      InkWell(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            const Padding(
+                              padding: EdgeInsets.only(right: 4),
+                              child: Icon(
+                                Icons.delete,
+                                size: 30,
+                              ),
+                            ),
+                            Text(
+                              'Delete Ad',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        onTap: () {
+                          // ignore: avoid_print
+                          print('Delete Ad');
+                          deleteCarAd(arguments["_id"]);
+                          Navigator.pop(context);
+                        },
+                      ),
+                      InkWell(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            const Padding(
+                              padding: EdgeInsets.only(right: 4),
+                              child: Icon(
+                                Icons.edit,
+                                size: 30,
+                              ),
+                            ),
+                            Text(
+                              'Edit Ad',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        onTap: () {
+                          // ignore: avoid_print 
+                          print('Edit Ad');
+                          Navigator.pushNamed(context, "/updateBookAndOthersAd",
+                              arguments: arguments);
+                        },
+                      ),
+                    ],
+                  )
+                : Container(),
           ],
         ),
       ),

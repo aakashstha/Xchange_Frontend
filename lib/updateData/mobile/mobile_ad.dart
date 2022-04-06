@@ -2,29 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:xchange_frontend/postData/book_and_others/post_book_others_url.dart';
+import 'package:xchange_frontend/postData/mobile/post_mobile_url.dart';
 import 'package:xchange_frontend/postData/gall_cam.dart';
 import 'dart:io';
 
-class BookAndOthersAd extends StatefulWidget {
-  const BookAndOthersAd({Key? key}) : super(key: key);
+class UpdateMobileAd extends StatefulWidget {
+  const UpdateMobileAd({Key? key}) : super(key: key);
 
   @override
   _CarAdState createState() => _CarAdState();
 }
 
-class _CarAdState extends State<BookAndOthersAd> {
+class _CarAdState extends State<UpdateMobileAd> {
+  final TextEditingController _brandController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController _adTitleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   List<XFile>? imagefiles;
   final _formKey = GlobalKey<FormState>();
+  bool updateOnce = true;
+  int updateImagefiles = 0;
 
   @override
   Widget build(BuildContext context) {
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
-    // print(arguments);
+    String _id = arguments['_id'];
+
+// this condition actually help us to update the field of our ads
+    if (updateOnce) {
+      _brandController.text = arguments['brand'];
+      _priceController.text = arguments['price'].toString();
+      _locationController.text = arguments['location'];
+      _adTitleController.text = arguments['adTitle'];
+      _descriptionController.text = arguments['description'];
+      updateImagefiles = arguments['images'].length;
+      updateOnce = false;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -75,6 +89,24 @@ class _CarAdState extends State<BookAndOthersAd> {
               key: _formKey,
               child: Column(
                 children: [
+                  TextFormField(
+                    controller: _brandController,
+                    decoration: const InputDecoration(
+                      hintText: 'Brand*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter brand';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
                   TextFormField(
                     controller: _priceController,
                     decoration: const InputDecoration(
@@ -283,8 +315,10 @@ class _CarAdState extends State<BookAndOthersAd> {
 
                         if (_formKey.currentState!.validate() && !imageEmpty) {
                           int _price = int.parse(_priceController.text);
-                          createBookAndOthersAd(
+                          updateMobileAd(
+                              _id,
                               arguments['category'],
+                              _brandController.text,
                               _price,
                               _locationController.text,
                               _adTitleController.text,
@@ -293,14 +327,15 @@ class _CarAdState extends State<BookAndOthersAd> {
                         } else if (_formKey.currentState!.validate() &&
                             imageEmpty) {
                           int _price = int.parse(_priceController.text);
-                          createBookAndOthersAd(
-                            arguments['category'],
-                            _price,
-                            _locationController.text,
-                            _adTitleController.text,
-                            _descriptionController.text,
-                            imagefiles!,
-                          );
+                          updateMobileAd(
+                              _id,
+                              arguments['category'],
+                              _brandController.text,
+                              _price,
+                              _locationController.text,
+                              _adTitleController.text,
+                              _descriptionController.text,
+                              imagefiles!);
                           Navigator.pop(context);
                         }
                       },

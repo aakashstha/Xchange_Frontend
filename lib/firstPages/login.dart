@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -16,7 +17,6 @@ class _LoginState extends State<Login> {
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool loginTry = false;
   bool hidePassword = true;
 
   @override
@@ -219,15 +219,18 @@ class _LoginState extends State<Login> {
                           fontFamily: 'RobotoCondensed',
                         ),
                       ),
-                      onPressed: () {
-                        // Future<bool> a = login(
-                        //     _controllerEmail.text, _controllerPassword.text);
+                      onPressed: () async {
+                        String _username = _controllerEmail.text;
+                        String _password = _controllerPassword.text;
+                        bool _loginDetails = await login(_username, _password);
 
-                        // print("aaaaaa = " + a.toString());
-
-                        // if (loginTry) {
-                        Navigator.pushNamed(context, "/navigation");
-                        //  }
+                        // var storage = const FlutterSecureStorage();
+                        // if (_loginDetails) {
+                        var jwt = _username;
+                        // storage.write(key: "jwt", value: jwt);
+                        Navigator.pushNamed(context, "/navigation",
+                            arguments: jwt);
+                        // }
                       },
                     ),
                   ),
@@ -267,17 +270,12 @@ class _LoginState extends State<Login> {
         "password": password,
       }),
     );
-    //final data = jsonDecode(response.body);
+    // final data = jsonDecode(response.body);
+    // print(data);
 
     if (response.statusCode == 200) {
-      // If the server did return a 201 CREATED response,
-      // then parse the JSON.
-      loginTry = true;
       return true;
     } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-      loginTry = false;
       return false;
     }
   }

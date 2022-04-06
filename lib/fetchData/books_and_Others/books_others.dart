@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
+import 'package:xchange_frontend/postData/book_and_others/post_book_others_url.dart';
 
 class BookAndAllOneAd extends StatelessWidget {
   const BookAndAllOneAd({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
+    List argumentData = ModalRoute.of(context)?.settings.arguments as List;
+    Map arguments = argumentData[0];
+    var showUpdateDeleteButton = argumentData[1];
 
     return Scaffold(
       body: Container(
@@ -165,6 +168,71 @@ class BookAndAllOneAd extends StatelessWidget {
                 fontFamily: 'RobotoCondensed',
               ),
             ),
+
+            // For Loged In Users
+            showUpdateDeleteButton
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      InkWell(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            const Padding(
+                              padding: EdgeInsets.only(right: 4),
+                              child: Icon(
+                                Icons.delete,
+                                size: 30,
+                              ),
+                            ),
+                            Text(
+                              'Delete Ad',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        onTap: () {
+                          // ignore: avoid_print
+                          print('Delete Ad');
+                          deleteBookAndOthersAd(arguments["_id"]);
+                          Navigator.pop(context);
+                        },
+                      ),
+                      InkWell(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            const Padding(
+                              padding: EdgeInsets.only(right: 4),
+                              child: Icon(
+                                Icons.edit,
+                                size: 30,
+                              ),
+                            ),
+                            Text(
+                              'Edit Ad',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        onTap: () {
+                          // ignore: avoid_print
+                          print('Edit Ad');
+                          Navigator.pushNamed(context, "/updateBookAndOthersAd",
+                              arguments: arguments);
+                        },
+                      ),
+                    ],
+                  )
+                : Container(),
           ],
         ),
       ),

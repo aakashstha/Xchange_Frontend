@@ -2,29 +2,49 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:xchange_frontend/postData/book_and_others/post_book_others_url.dart';
+import 'package:xchange_frontend/postData/room/post_room_url.dart';
 import 'package:xchange_frontend/postData/gall_cam.dart';
 import 'dart:io';
 
-class BookAndOthersAd extends StatefulWidget {
-  const BookAndOthersAd({Key? key}) : super(key: key);
+class UpdateRoomAd extends StatefulWidget {
+  const UpdateRoomAd({Key? key}) : super(key: key);
 
   @override
   _CarAdState createState() => _CarAdState();
 }
 
-class _CarAdState extends State<BookAndOthersAd> {
-  final TextEditingController _priceController = TextEditingController();
+class _CarAdState extends State<UpdateRoomAd> {
+  final TextEditingController _totalRoomsController = TextEditingController();
+  final TextEditingController _kitchenController = TextEditingController();
+  final TextEditingController _toiletController = TextEditingController();
+  final TextEditingController _waterSupplyController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
   final TextEditingController _adTitleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   List<XFile>? imagefiles;
   final _formKey = GlobalKey<FormState>();
+  bool updateOnce = true;
+  int updateImagefiles = 0;
 
   @override
   Widget build(BuildContext context) {
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
-    // print(arguments);
+    String _id = arguments['_id'];
+
+// this condition actually help us to update the field of our ads
+    if (updateOnce) {
+      _totalRoomsController.text = arguments['totalRooms'].toString();
+      _kitchenController.text = arguments['kitchen'];
+      _toiletController.text = arguments['toilet'];
+      _waterSupplyController.text = arguments['waterSupply'];
+      _priceController.text = arguments['price'].toString();
+      _locationController.text = arguments['location'];
+      _adTitleController.text = arguments['adTitle'];
+      _descriptionController.text = arguments['description'];
+      updateImagefiles = arguments['images'].length;
+      updateOnce = false;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -76,6 +96,98 @@ class _CarAdState extends State<BookAndOthersAd> {
               child: Column(
                 children: [
                   TextFormField(
+                    controller: _totalRoomsController,
+                    decoration: const InputDecoration(
+                      hintText: 'Total rooms*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter total rooms';
+                      } else if (int.tryParse(value) == null) {
+                        return 'Please enter valid total rooms';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _kitchenController,
+                    decoration: const InputDecoration(
+                      hintText: 'Kitchen*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter kitchen! Yes || No';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _toiletController,
+                    decoration: const InputDecoration(
+                      hintText: 'Toilet*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter toilet! Yes || No';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _waterSupplyController,
+                    decoration: const InputDecoration(
+                      hintText: 'Water Supply*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter water supply! Yes || No';
+                      }
+                      return null;
+                    },
+                  ),
+
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  TextFormField(
+                    controller: _locationController,
+                    decoration: const InputDecoration(
+                      hintText: 'Location*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter location';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
                     controller: _priceController,
                     decoration: const InputDecoration(
                       hintText: 'Price*',
@@ -89,26 +201,6 @@ class _CarAdState extends State<BookAndOthersAd> {
                       return null;
                     },
                   ),
-                  Container(
-                    height: 1.5,
-                    width: double.infinity,
-                    color: Colors.grey,
-                  ),
-                  const SizedBox(height: 10),
-
-                  TextFormField(
-                    controller: _locationController,
-                    decoration: const InputDecoration(
-                      hintText: 'Location*',
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter location';
-                      }
-                      return null;
-                    },
-                  ),
-
                   Container(
                     height: 1.5,
                     width: double.infinity,
@@ -280,23 +372,40 @@ class _CarAdState extends State<BookAndOthersAd> {
                             "true") {
                           imageEmpty = true;
                         }
+                        // print(imageEmpty);
 
                         if (_formKey.currentState!.validate() && !imageEmpty) {
                           int _price = int.parse(_priceController.text);
-                          createBookAndOthersAd(
-                              arguments['category'],
-                              _price,
-                              _locationController.text,
-                              _adTitleController.text,
-                              _descriptionController.text, []);
+                          int _totalRooms =
+                              int.parse(_totalRoomsController.text);
+                          updateRoomAd(
+                            _id,
+                            arguments['category'],
+                            _totalRooms,
+                            _kitchenController.text,
+                            _toiletController.text,
+                            _waterSupplyController.text,
+                            _locationController.text,
+                            _price,
+                            _adTitleController.text,
+                            _descriptionController.text,
+                            [],
+                          );
                           Navigator.pop(context);
                         } else if (_formKey.currentState!.validate() &&
                             imageEmpty) {
                           int _price = int.parse(_priceController.text);
-                          createBookAndOthersAd(
+                          int _totalRooms =
+                              int.parse(_totalRoomsController.text);
+                          updateRoomAd(
+                            _id,
                             arguments['category'],
-                            _price,
+                            _totalRooms,
+                            _kitchenController.text,
+                            _toiletController.text,
+                            _waterSupplyController.text,
                             _locationController.text,
+                            _price,
                             _adTitleController.text,
                             _descriptionController.text,
                             imagefiles!,

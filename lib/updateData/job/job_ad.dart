@@ -2,29 +2,49 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:xchange_frontend/postData/book_and_others/post_book_others_url.dart';
+import 'package:xchange_frontend/postData/job/post_job_url.dart';
 import 'package:xchange_frontend/postData/gall_cam.dart';
 import 'dart:io';
 
-class BookAndOthersAd extends StatefulWidget {
-  const BookAndOthersAd({Key? key}) : super(key: key);
+class UpdateJobAd extends StatefulWidget {
+  const UpdateJobAd({Key? key}) : super(key: key);
 
   @override
   _CarAdState createState() => _CarAdState();
 }
 
-class _CarAdState extends State<BookAndOthersAd> {
-  final TextEditingController _priceController = TextEditingController();
+class _CarAdState extends State<UpdateJobAd> {
+  final TextEditingController _salaryPeriodController = TextEditingController();
+  final TextEditingController _positionTypeController = TextEditingController();
+  final TextEditingController _salaryFromController = TextEditingController();
+  final TextEditingController _salaryToController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
   final TextEditingController _adTitleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   List<XFile>? imagefiles;
   final _formKey = GlobalKey<FormState>();
+  bool updateOnce = true;
+  int updateImagefiles = 0;
 
   @override
   Widget build(BuildContext context) {
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
+    print(arguments);
+    String _id = arguments['_id'];
     // print(arguments);
+    if (updateOnce) {
+      _salaryPeriodController.text = arguments['salaryPeriod'];
+      _positionTypeController.text = arguments['positionType'];
+      _salaryFromController.text = arguments['salaryFrom'];
+      _salaryToController.text = arguments['salaryTo'];
+      _priceController.text = arguments['price'].toString();
+      _locationController.text = arguments['location'];
+      _adTitleController.text = arguments['adTitle'];
+      _descriptionController.text = arguments['description'];
+      updateImagefiles = arguments['images'].length;
+      updateOnce = false;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -76,15 +96,13 @@ class _CarAdState extends State<BookAndOthersAd> {
               child: Column(
                 children: [
                   TextFormField(
-                    controller: _priceController,
+                    controller: _salaryPeriodController,
                     decoration: const InputDecoration(
-                      hintText: 'Price*',
+                      hintText: 'Salary period*',
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Please enter price';
-                      } else if (int.tryParse(value) == null) {
-                        return 'Please enter valid price';
+                        return 'Please enter salary period';
                       }
                       return null;
                     },
@@ -95,7 +113,60 @@ class _CarAdState extends State<BookAndOthersAd> {
                     color: Colors.grey,
                   ),
                   const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _positionTypeController,
+                    decoration: const InputDecoration(
+                      hintText: 'Position type*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter position type';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _salaryFromController,
+                    decoration: const InputDecoration(
+                      hintText: 'Salary from*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter salary from';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _salaryToController,
+                    decoration: const InputDecoration(
+                      hintText: 'Salary to*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter salary to';
+                      }
+                      return null;
+                    },
+                  ),
 
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
                   TextFormField(
                     controller: _locationController,
                     decoration: const InputDecoration(
@@ -108,7 +179,26 @@ class _CarAdState extends State<BookAndOthersAd> {
                       return null;
                     },
                   ),
-
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _priceController,
+                    decoration: const InputDecoration(
+                      hintText: 'Price*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter price';
+                      } else if (int.tryParse(value) == null) {
+                        return 'Please enter valid KM driven';
+                      }
+                      return null;
+                    },
+                  ),
                   Container(
                     height: 1.5,
                     width: double.infinity,
@@ -280,23 +370,36 @@ class _CarAdState extends State<BookAndOthersAd> {
                             "true") {
                           imageEmpty = true;
                         }
+                        // print(imageEmpty);
 
                         if (_formKey.currentState!.validate() && !imageEmpty) {
                           int _price = int.parse(_priceController.text);
-                          createBookAndOthersAd(
-                              arguments['category'],
-                              _price,
-                              _locationController.text,
-                              _adTitleController.text,
-                              _descriptionController.text, []);
+                          updateJobAd(
+                            _id,
+                            arguments['category'],
+                            _salaryPeriodController.text,
+                            _positionTypeController.text,
+                            _salaryFromController.text,
+                            _salaryToController.text,
+                            _locationController.text,
+                            _price,
+                            _adTitleController.text,
+                            _descriptionController.text,
+                            [],
+                          );
                           Navigator.pop(context);
                         } else if (_formKey.currentState!.validate() &&
                             imageEmpty) {
                           int _price = int.parse(_priceController.text);
-                          createBookAndOthersAd(
+                          updateJobAd(
+                            _id,
                             arguments['category'],
-                            _price,
+                            _salaryPeriodController.text,
+                            _positionTypeController.text,
+                            _salaryFromController.text,
+                            _salaryToController.text,
                             _locationController.text,
+                            _price,
                             _adTitleController.text,
                             _descriptionController.text,
                             imagefiles!,

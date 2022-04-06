@@ -32,6 +32,12 @@ import 'package:xchange_frontend/postData/property/property_ad.dart';
 import 'package:xchange_frontend/postData/job/job_ad.dart';
 import 'package:xchange_frontend/postData/room/room_ad.dart';
 import 'package:xchange_frontend/postData/book_and_others/book_others_ad.dart';
+import 'package:xchange_frontend/updateData/car_bike/car_ad.dart';
+import 'package:xchange_frontend/updateData/mobile/mobile_ad.dart';
+import 'package:xchange_frontend/updateData/property/property_ad.dart';
+import 'package:xchange_frontend/updateData/job/job_ad.dart';
+import 'package:xchange_frontend/updateData/room/room_ad.dart';
+import 'package:xchange_frontend/updateData/book_and_others/book_others_ad.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -97,6 +103,14 @@ class MyApp extends StatelessWidget {
         '/placeJobAd': (context) => const JobAd(),
         '/placeRoomAd': (context) => const RoomAd(),
         '/placeBookAndOthersAd': (context) => const BookAndOthersAd(),
+
+        // Update Data
+        '/updateCarAd': (context) => const UpdateCarAd(),
+        '/updateMobileAd': (context) => const UpdateMobileAd(),
+        '/updatePropertyAd': (context) => const UpdatePropertyAd(),
+        '/updateJobAd': (context) => const UpdateJobAd(),
+        '/updateRoomAd': (context) => const UpdateRoomAd(),
+        '/updateBookAndOthersAd': (context) => const UpdateBookAndOthersAd(),
       },
       home: const Login(),
     );

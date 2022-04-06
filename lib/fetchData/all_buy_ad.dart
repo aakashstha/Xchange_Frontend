@@ -9,11 +9,12 @@ class AllBuyAds extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
+    // ignore: avoid_print
     print(arguments['category']);
 
     final response = Uri.parse(
         "http://localhost:8000/products/categorical/" + arguments['category']);
-    Future<List<dynamic>> fetchMobileAds() async {
+    Future<List<dynamic>> fetchAllCategoricalAds() async {
       var result = await http.get(response);
 
       return jsonDecode(result.body)['products'];
@@ -23,8 +24,6 @@ class AllBuyAds extends StatelessWidget {
         arguments['category'][0].toString().toUpperCase() +
         arguments['category'].substring(1);
 
-    print(appBarText);
-
     return Scaffold(
       appBar: AppBar(
         foregroundColor: black,
@@ -33,7 +32,7 @@ class AllBuyAds extends StatelessWidget {
         // actions: [Center(child: Text("6"))],
       ),
       body: FutureBuilder<List<dynamic>>(
-        future: fetchMobileAds(),
+        future: fetchAllCategoricalAds(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -76,10 +75,12 @@ Widget getAd(dynamic datalist, BuildContext context, String category) {
 
   return InkWell(
     onTap: () {
+      var showUpdateDeleteButton = false;
+
       Navigator.pushNamed(
         context,
         fetchRoute,
-        arguments: datalist,
+        arguments: [datalist, showUpdateDeleteButton],
       );
     },
     child: Row(

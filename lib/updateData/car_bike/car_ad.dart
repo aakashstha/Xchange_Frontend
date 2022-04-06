@@ -2,29 +2,47 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:xchange_frontend/postData/book_and_others/post_book_others_url.dart';
+import 'package:xchange_frontend/postData/car_bike/post_car_url.dart';
 import 'package:xchange_frontend/postData/gall_cam.dart';
 import 'dart:io';
 
-class BookAndOthersAd extends StatefulWidget {
-  const BookAndOthersAd({Key? key}) : super(key: key);
+class UpdateCarAd extends StatefulWidget {
+  const UpdateCarAd({Key? key}) : super(key: key);
 
   @override
   _CarAdState createState() => _CarAdState();
 }
 
-class _CarAdState extends State<BookAndOthersAd> {
+class _CarAdState extends State<UpdateCarAd> {
+  final TextEditingController _brandController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
+  final TextEditingController _yearController = TextEditingController();
+  final TextEditingController _kmDrivenController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
   final TextEditingController _adTitleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   List<XFile>? imagefiles;
   final _formKey = GlobalKey<FormState>();
+  bool updateOnce = true;
+  int updateImagefiles = 0;
 
   @override
   Widget build(BuildContext context) {
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
-    // print(arguments);
+    String _id = arguments['_id'];
+
+// this condition actually help us to update the field of our ads
+    if (updateOnce) {
+      _brandController.text = arguments['brand'];
+      _priceController.text = arguments['price'].toString();
+      _yearController.text = arguments['year'];
+      _kmDrivenController.text = arguments['kmDriven'].toString();
+      _locationController.text = arguments['location'];
+      _adTitleController.text = arguments['adTitle'];
+      _descriptionController.text = arguments['description'];
+      updateImagefiles = arguments['images'].length;
+      updateOnce = false;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -42,7 +60,7 @@ class _CarAdState extends State<BookAndOthersAd> {
         automaticallyImplyLeading: true,
         backgroundColor: HomeColors.appBar,
         title: Text(
-          'Place Your Ad',
+          'Update Your Ad',
           style: TextStyle(
             fontSize: 18,
             color: black,
@@ -76,6 +94,24 @@ class _CarAdState extends State<BookAndOthersAd> {
               child: Column(
                 children: [
                   TextFormField(
+                    controller: _brandController,
+                    decoration: const InputDecoration(
+                      hintText: 'Brand*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter brand';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
                     controller: _priceController,
                     decoration: const InputDecoration(
                       hintText: 'Price*',
@@ -95,7 +131,43 @@ class _CarAdState extends State<BookAndOthersAd> {
                     color: Colors.grey,
                   ),
                   const SizedBox(height: 10),
-
+                  TextFormField(
+                    controller: _yearController,
+                    decoration: const InputDecoration(
+                      hintText: 'Year*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter year';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _kmDrivenController,
+                    decoration: const InputDecoration(
+                      hintText: 'KM driven*',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter KM driven';
+                      } else if (int.tryParse(value) == null) {
+                        return 'Please enter valid KM driven';
+                      }
+                      return null;
+                    },
+                  ),
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
                   TextFormField(
                     controller: _locationController,
                     decoration: const InputDecoration(
@@ -108,7 +180,6 @@ class _CarAdState extends State<BookAndOthersAd> {
                       return null;
                     },
                   ),
-
                   Container(
                     height: 1.5,
                     width: double.infinity,
@@ -239,6 +310,59 @@ class _CarAdState extends State<BookAndOthersAd> {
                     ],
                   ),
                   const SizedBox(height: 20),
+                  Center(
+                    child: Text(
+                      "Old images",
+                      style: TextStyle(
+                        color: black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        fontFamily: 'RobotoCondenced',
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+
+                  updateImagefiles > 0
+                      ? Row(
+                          children: [
+                            Expanded(
+                              child: GridView.count(
+                                shrinkWrap: true,
+                                crossAxisCount: 4,
+                                children: List.generate(
+                                    arguments['images'].length, (index) {
+                                  return Card(
+                                    child: SizedBox(
+                                      height: 125,
+                                      width: 84,
+                                      child: Image.network(
+                                        arguments['images'][index],
+                                      ),
+                                    ),
+                                  );
+                                }),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Container(),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Center(
+                      child: Text(
+                        "Choose new images",
+                        style: TextStyle(
+                          color: black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          fontFamily: 'RobotoCondenced',
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                  ),
                   // Selected Images from Gallery
                   imagefiles != null
                       ? Wrap(
@@ -264,7 +388,7 @@ class _CarAdState extends State<BookAndOthersAd> {
                     ),
                     child: CupertinoButton(
                       child: Text(
-                        "Done",
+                        "Update",
                         style: TextStyle(
                           fontSize: 16,
                           color: white,
@@ -273,6 +397,16 @@ class _CarAdState extends State<BookAndOthersAd> {
                         ),
                       ),
                       onPressed: () {
+                        // print(_brandController.text);
+                        // print(_priceController.text);
+                        // print(_yearController.text);
+                        // print(_kmDrivenController.text);
+                        // print(_locationController.text);
+                        // print(_adTitleController.text);
+                        // print(_descriptionController.text);
+
+                        // print(imagefiles?.isNotEmpty.toString());
+
                         bool imageEmpty = false;
                         if (imagefiles?.isNotEmpty.toString() == "null") {
                           imageEmpty = false;
@@ -280,12 +414,18 @@ class _CarAdState extends State<BookAndOthersAd> {
                             "true") {
                           imageEmpty = true;
                         }
+                        print(imageEmpty);
 
                         if (_formKey.currentState!.validate() && !imageEmpty) {
                           int _price = int.parse(_priceController.text);
-                          createBookAndOthersAd(
+                          int _kmDriven = int.parse(_kmDrivenController.text);
+                          updateCarAd(
+                              _id,
                               arguments['category'],
+                              _brandController.text,
                               _price,
+                              _yearController.text,
+                              _kmDriven,
                               _locationController.text,
                               _adTitleController.text,
                               _descriptionController.text, []);
@@ -293,14 +433,18 @@ class _CarAdState extends State<BookAndOthersAd> {
                         } else if (_formKey.currentState!.validate() &&
                             imageEmpty) {
                           int _price = int.parse(_priceController.text);
-                          createBookAndOthersAd(
-                            arguments['category'],
-                            _price,
-                            _locationController.text,
-                            _adTitleController.text,
-                            _descriptionController.text,
-                            imagefiles!,
-                          );
+                          int _kmDriven = int.parse(_kmDrivenController.text);
+                          updateCarAd(
+                              _id,
+                              arguments['category'],
+                              _brandController.text,
+                              _price,
+                              _yearController.text,
+                              _kmDriven,
+                              _locationController.text,
+                              _adTitleController.text,
+                              _descriptionController.text,
+                              imagefiles!);
                           Navigator.pop(context);
                         }
                       },
