@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:xchange_frontend/account/api.dart';
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({Key? key}) : super(key: key);
@@ -10,6 +11,11 @@ class ChangePassword extends StatefulWidget {
 }
 
 class _ChangePasswordState extends State<ChangePassword> {
+  final TextEditingController _oldPasswordController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
+  final TextEditingController _retypeNewPasswordController =
+      TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,8 +49,9 @@ class _ChangePasswordState extends State<ChangePassword> {
             padding: const EdgeInsets.symmetric(horizontal: 22),
             child: Column(
               children: [
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _oldPasswordController,
+                  decoration: const InputDecoration(
                     hintText: 'Enter Old Password',
                   ),
                 ),
@@ -54,8 +61,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                   color: Colors.grey,
                 ),
                 const SizedBox(height: 5),
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _newPasswordController,
+                  decoration: const InputDecoration(
                     hintText: 'Enter New Password',
                   ),
                 ),
@@ -65,8 +73,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                   color: Colors.grey,
                 ),
                 const SizedBox(height: 5),
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _retypeNewPasswordController,
+                  decoration: const InputDecoration(
                     hintText: 'Retype New Password',
                   ),
                 ),
@@ -99,7 +108,14 @@ class _ChangePasswordState extends State<ChangePassword> {
                     fontFamily: 'RobotoCondensed',
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  print(_oldPasswordController.text);
+                  print(_newPasswordController.text);
+                  print(_retypeNewPasswordController.text);
+
+                  updateUserPassword("624d77ad604cdd7330dd68ef",
+                      _oldPasswordController.text, _newPasswordController.text);
+                },
               ),
             ),
           ),

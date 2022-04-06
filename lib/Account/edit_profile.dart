@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
+import 'package:xchange_frontend/account/api.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -9,8 +10,26 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _bioController = TextEditingController();
+  final TextEditingController _websiteController = TextEditingController();
+  final TextEditingController _dobController = TextEditingController();
+  bool updateOnce = true;
+
   @override
   Widget build(BuildContext context) {
+    List argumentData = ModalRoute.of(context)?.settings.arguments as List;
+    Map argument = argumentData[0];
+    String twoCharacter = argumentData[1];
+    String _id = argument['_id'];
+
+    if (updateOnce) {
+      _fullNameController.text = argument['fullName'];
+      _bioController.text = argument['bio'];
+      _websiteController.text = argument['website'];
+      _dobController.text = argument['dob'];
+      updateOnce = false;
+    }
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -36,7 +55,17 @@ class _EditProfileState extends State<EditProfile> {
                 fontSize: 16,
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              // print("Updated");
+              updateIndividualUser(
+                _id,
+                _fullNameController.text,
+                _bioController.text,
+                _websiteController.text,
+                _dobController.text,
+              );
+              Navigator.pop(context);
+            },
           )
         ],
       ),
@@ -50,7 +79,7 @@ class _EditProfileState extends State<EditProfile> {
             ),
             child: Center(
               child: Text(
-                "AS",
+                twoCharacter,
                 style: TextStyle(
                   fontSize: 80,
                   color: white,
@@ -64,8 +93,9 @@ class _EditProfileState extends State<EditProfile> {
             padding: const EdgeInsets.symmetric(horizontal: 22),
             child: Column(
               children: [
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _fullNameController,
+                  decoration: const InputDecoration(
                     hintText: 'Full Name',
                   ),
                 ),
@@ -75,8 +105,9 @@ class _EditProfileState extends State<EditProfile> {
                   color: Colors.grey,
                 ),
                 const SizedBox(height: 5),
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _bioController,
+                  decoration: const InputDecoration(
                     hintText: 'Bio',
                   ),
                 ),
@@ -86,8 +117,9 @@ class _EditProfileState extends State<EditProfile> {
                   color: Colors.grey,
                 ),
                 const SizedBox(height: 5),
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _websiteController,
+                  decoration: const InputDecoration(
                     hintText: 'Website',
                   ),
                 ),
@@ -97,8 +129,9 @@ class _EditProfileState extends State<EditProfile> {
                   color: Colors.grey,
                 ),
                 const SizedBox(height: 5),
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _dobController,
+                  decoration: const InputDecoration(
                     hintText: 'Date of Birth',
                   ),
                 ),

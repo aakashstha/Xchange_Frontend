@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:xchange_frontend/account/api.dart';
 
 class Account extends StatefulWidget {
   const Account({Key? key}) : super(key: key);
@@ -10,63 +11,26 @@ class Account extends StatefulWidget {
 }
 
 class _AccountState extends State<Account> {
+  String userEmail = 'sagar@gmail.com';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.edit),
-                onPressed: () {
-                  Navigator.pushNamed(context, "/editProfile");
-                },
-              ),
-            ],
+          FutureBuilder<Map>(
+            future: getIndividualUser(userEmail),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                // print(snapshot.data);
+                return profileDesign(context, snapshot.data);
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
           ),
-          Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              color: iosToggle,
-              shape: BoxShape.circle,
-            ),
-            child: Center(
-              child: Text(
-                "AS",
-                style: TextStyle(
-                  fontSize: 35,
-                  color: white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
-          Center(
-            child: Text(
-              "Aakash Shrestha",
-              style: TextStyle(
-                fontSize: 20,
-                color: black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          const SizedBox(height: 2),
-          Center(
-            child: Text(
-              "user since April 2018",
-              style: TextStyle(
-                fontSize: 16,
-                color: black,
-              ),
-            ),
-          ),
-          const SizedBox(height: 40),
-
           // Setting
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 15),
@@ -223,4 +187,91 @@ class _AccountState extends State<Account> {
       ),
     );
   }
+}
+
+Widget profileDesign(BuildContext context, Map userData) {
+  // print(userData['dateCreated']);
+
+  // For Profile Name
+  var fullName = userData['fullName'].split(' ');
+  var character1 = fullName[0].substring(0, 1);
+  var character2 = fullName[1].substring(0, 1);
+
+  // For User Created Date
+  var year = userData['dateCreated'].toString().substring(0, 4);
+  int monthNumber =
+      int.parse(userData['dateCreated'].toString().substring(5, 7));
+
+  const Map<int, String> monthsInYear = {
+    1: "January",
+    2: "February",
+    3: "March",
+    4: "April",
+    5: "May",
+    6: "June",
+    7: "July",
+    8: "August",
+    9: "September",
+    10: "October",
+    11: "November",
+    12: "December"
+  };
+
+  return Column(children: [
+    Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        IconButton(
+          icon: const Icon(Icons.edit),
+          onPressed: () {
+            Navigator.pushNamed(
+              context,
+              "/editProfile",
+              arguments: [userData, "$character1$character2"],
+            );
+          },
+        ),
+      ],
+    ),
+    Container(
+      width: 100,
+      height: 100,
+      decoration: BoxDecoration(
+        color: iosToggle,
+        shape: BoxShape.circle,
+      ),
+      child: Center(
+        child: Text(
+          "$character1$character2",
+          style: TextStyle(
+            fontSize: 35,
+            color: white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    ),
+    const SizedBox(height: 10),
+    Center(
+      child: Text(
+        userData['fullName'],
+        style: TextStyle(
+          fontSize: 20,
+          color: black,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+    const SizedBox(height: 2),
+    Center(
+      child: Text(
+        "user since ${monthsInYear[monthNumber]} $year",
+        style: TextStyle(
+          fontSize: 16,
+          color: black,
+        ),
+      ),
+    ),
+    const SizedBox(height: 40),
+  ]);
 }
