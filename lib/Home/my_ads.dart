@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:xchange_frontend/account/api.dart';
 
 class MyAds extends StatefulWidget {
   const MyAds({Key? key}) : super(key: key);
@@ -11,17 +12,6 @@ class MyAds extends StatefulWidget {
 }
 
 class _MyAdsState extends State<MyAds> {
-  var username = 'sashank@gmail.com';
-
-  var response =
-      Uri.parse("http://localhost:8000/products/user/sashank@gmail.com");
-
-  Future<List<dynamic>> fetchAllUserAds() async {
-    var result = await http.get(response);
-
-    return jsonDecode(result.body)['products'];
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,11 +19,20 @@ class _MyAdsState extends State<MyAds> {
         future: fetchAllUserAds(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            return ListView.builder(
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return getAd(snapshot.data[index], context);
-                });
+            return snapshot.data.isNotEmpty
+                ? ListView.builder(
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return getAd(snapshot.data[index], context);
+                    })
+                : Center(
+                    child: Text("You have not uploaded any ads so far.",
+                        style: TextStyle(
+                          color: black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        )),
+                  );
           } else {
             return const Center(
               child: CircularProgressIndicator(),

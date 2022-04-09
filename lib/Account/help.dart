@@ -36,14 +36,30 @@ class _HelpState extends State<Help> {
           ),
         ),
       ),
-      body: ListView(
-        children: [
-          Container(
-            height: 200,
-            width: 200,
-            color: black,
-          )
-        ],
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+        child: ListView(
+          children: [
+            Text(
+              "If you need any help or \nwant to drop some feedback then \nplease mail us at:\n",
+              style: TextStyle(
+                fontSize: 18,
+                color: black,
+                fontFamily: 'RobotoCondensed',
+              ),
+            ),
+            Text(
+              "xchangeteam@gmail.com",
+              style: TextStyle(
+                fontSize: 18,
+                color: black,
+                decoration: TextDecoration.underline,
+                fontFamily: 'RobotoCondensed',
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

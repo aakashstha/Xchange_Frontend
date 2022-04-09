@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
-Future<Map> getIndividualUser(
-  String userId,
-) async {
-  String userEndPoint = 'http://localhost:8000/user/';
+var storage = const FlutterSecureStorage();
+Future<Map> getIndividualUser() async {
+  var userId = await storage.read(key: 'userId');
 
+  String userEndPoint = 'http://localhost:8000/user';
   Dio dio = Dio();
-
   try {
     Response response = await dio.get(userEndPoint + '/$userId');
     // print(response.data);
@@ -50,22 +50,67 @@ void updateIndividualUser(
   }
 }
 
-void updateUserPassword(
-    String _id, String oldPassword, String newPassword) async {
+Future<Map?> updateUserPassword(String oldPassword, String newPassword) async {
+  var userId = await storage.read(key: 'userId');
+
   String userEndPoint = 'http://localhost:8000/user/change_password';
 
   Map<String, dynamic> mapData = {
+    "userId": userId,
     "oldPassword": oldPassword,
     "newPassword": newPassword
   };
-
   Dio dio = Dio();
   try {
-    Response response = await dio.put(userEndPoint + '/$_id', data: mapData);
+    Response response = await dio.put(userEndPoint, data: mapData);
     // ignore: avoid_print
     print(response.data);
+
+    return response.data;
   } catch (error) {
     // ignore: avoid_print
     print("new awesome " + error.toString());
+    return null;
+  }
+}
+
+Future<Map?> signup(String fullName, String email, String password) async {
+  String userEndPoint = 'http://localhost:8000/user/signup';
+
+  Map<String, dynamic> mapData = {
+    "fullName": fullName,
+    "email": email,
+    "password": password,
+    "bio": "",
+    "website": "",
+    "dob": "",
+  };
+  Dio dio = Dio();
+  try {
+    Response response = await dio.post(userEndPoint, data: mapData);
+    // ignore: avoid_print
+    print(response.data);
+
+    return response.data;
+  } catch (error) {
+    // ignore: avoid_print
+    print("new awesome " + error.toString());
+    return null;
+  }
+}
+
+Future<List<dynamic>> fetchAllUserAds() async {
+  var userId = await storage.read(key: 'userId');
+
+  String userEndPoint = "http://localhost:8000/products/user";
+  Dio dio = Dio();
+  try {
+    Response response = await dio.get(userEndPoint + '/$userId');
+    print(response.data);
+    return response.data['products'];
+  } catch (error) {
+    // ignore: avoid_print
+    print("Error from getting user" + error.toString());
+    throw Exception('Failed to load post');
   }
 }

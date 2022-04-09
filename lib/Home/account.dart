@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:xchange_frontend/account/api.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Account extends StatefulWidget {
   const Account({Key? key}) : super(key: key);
@@ -11,15 +12,13 @@ class Account extends StatefulWidget {
 }
 
 class _AccountState extends State<Account> {
-  String userEmail = 'sagar@gmail.com';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
         children: [
           FutureBuilder<Map>(
-            future: getIndividualUser(userEmail),
+            future: getIndividualUser(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
                 // print(snapshot.data);
@@ -177,8 +176,13 @@ class _AccountState extends State<Account> {
                     fontFamily: 'RobotoCondensed',
                   ),
                 ),
-                onPressed: () {
-                  Navigator.pushNamed(context, "/login");
+                onPressed: () async {
+                  var storage = const FlutterSecureStorage();
+                  await storage.delete(key: "token");
+                  await storage.delete(key: "userId");
+                  await storage.delete(key: "email");
+
+                  alertDialog(context);
                 },
               ),
             ),
@@ -190,8 +194,6 @@ class _AccountState extends State<Account> {
 }
 
 Widget profileDesign(BuildContext context, Map userData) {
-  // print(userData['dateCreated']);
-
   // For Profile Name
   var fullName = userData['fullName'].split(' ');
   var character1 = fullName[0].substring(0, 1);
@@ -274,4 +276,50 @@ Widget profileDesign(BuildContext context, Map userData) {
     ),
     const SizedBox(height: 40),
   ]);
+}
+
+void alertDialog(BuildContext context) {
+  var alertDialog = AlertDialog(
+    shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20.0))),
+    backgroundColor: white,
+    title: Center(
+      child: Text(
+        "Xchange",
+        style: TextStyle(
+            fontSize: 30,
+            color: black,
+            fontFamily: 'Arial_Rounded',
+            fontWeight: FontWeight.w500,
+            decoration: TextDecoration.underline),
+      ),
+    ),
+    content: Text(
+      "Are you sure you want to log out.",
+      style: TextStyle(
+        fontSize: 16,
+        color: black,
+      ),
+    ),
+    actions: [
+      TextButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: const Text('No'),
+      ),
+      TextButton(
+        onPressed: () {
+          Navigator.pushNamed(context, "/login");
+        },
+        child: const Text('Yes'),
+      )
+    ],
+  );
+  showDialog(
+    context: context,
+    builder: (buildContext) {
+      return alertDialog;
+    },
+  );
 }

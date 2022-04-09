@@ -137,7 +137,7 @@ class _SellState extends State<Sell> {
                 ],
               ),
             ),
-            onTap: () {
+            onTap: () async {
               Navigator.pushNamed(context, "/placeCarAd",
                   arguments: {'category': 'cars'});
             },

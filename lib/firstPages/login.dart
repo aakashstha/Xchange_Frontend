@@ -115,7 +115,7 @@ class _LoginState extends State<Login> {
                   controller: _controllerPassword,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please enter email';
+                      return 'Please enter password';
                     }
                     return null;
                   },
@@ -194,7 +194,10 @@ class _LoginState extends State<Login> {
                           fontFamily: 'RobotoCondensed',
                         ),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
+                        // var storage = const FlutterSecureStorage();
+                        // var value = await storage.read(key: "email");
+                        // print(value);
                         Navigator.pushNamed(context, "/signup");
                       },
                     ),
@@ -220,23 +223,50 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                       onPressed: () async {
-                        String _username = _controllerEmail.text;
-                        String _password = _controllerPassword.text;
-                        bool _loginDetails = await login(_username, _password);
+                        if (_formKey.currentState!.validate()) {
+                          String _userEmail = _controllerEmail.text;
+                          String _password = _controllerPassword.text;
+                          Map? _loginDetails =
+                              await login(_userEmail, _password);
 
-                        // var storage = const FlutterSecureStorage();
-                        // if (_loginDetails) {
-                        var jwt = _username;
-                        // storage.write(key: "jwt", value: jwt);
-                        Navigator.pushNamed(context, "/navigation",
-                            arguments: jwt);
-                        // }
+                          print(_loginDetails);
+                          var storage = const FlutterSecureStorage();
+                          if (_loginDetails != null &&
+                              !_loginDetails['confirm']) {
+                            var snackBar = const SnackBar(
+                              content: Text(
+                                  'Your email is not verified Please verify first and try login.'),
+                            );
+
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          } else if (_loginDetails != null &&
+                              _loginDetails['confirm']) {
+                            var token = _loginDetails['token'];
+                            var userId = _loginDetails['id'];
+                            var email = _loginDetails['email'];
+
+                            await storage.write(key: 'token', value: token);
+                            await storage.write(key: 'userId', value: userId);
+                            await storage.write(key: 'email', value: email);
+
+                            Navigator.pushNamed(context, "/navigation");
+                          } else {
+                            var snackBar = const SnackBar(
+                              content: Text('Wrong email or password'),
+                            );
+
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+                        }
                       },
                     ),
                   ),
                 ),
               ],
             ),
+
             Padding(
               padding: const EdgeInsets.only(top: 140),
               child: TextButton(
@@ -259,7 +289,7 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Future<bool> login(String email, String password) async {
+  Future<Map?> login(String email, String password) async {
     final response = await http.post(
       Uri.parse('http://localhost:8000/user/login'),
       headers: <String, String>{
@@ -270,13 +300,11 @@ class _LoginState extends State<Login> {
         "password": password,
       }),
     );
-    // final data = jsonDecode(response.body);
-    // print(data);
 
     if (response.statusCode == 200) {
-      return true;
+      return jsonDecode(response.body);
     } else {
-      return false;
+      return null;
     }
   }
 }
