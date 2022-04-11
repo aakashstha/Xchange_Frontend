@@ -258,7 +258,7 @@ class _SignupState extends State<Signup> {
                   obscureText: hideConfirmPassword,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please retype ypur password to match';
+                      return 'Please retype your password to match';
                     }
                     return null;
                   },
@@ -293,7 +293,6 @@ class _SignupState extends State<Signup> {
                           content:
                               Text('Your two password field didnot matched!'),
                         );
-
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         return;
                       } else if (_passwordController.text.length < 5) {

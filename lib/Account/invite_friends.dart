@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:share_plus/share_plus.dart';
 
 class InviteFriends extends StatefulWidget {
   const InviteFriends({Key? key}) : super(key: key);
@@ -77,8 +78,8 @@ class _InviteFriendsState extends State<InviteFriends> {
                       ],
                     ),
                   ),
-                  onTap: () {
-                    // Navigator.pushNamed(context, "/placeMobileAd");
+                  onTap: () async {
+                    await Share.share('Share this in on WhatsApp');
                   },
                 ),
               ),

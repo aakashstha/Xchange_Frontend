@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 var storage = const FlutterSecureStorage();
 Future<Map> getIndividualUser() async {
   var userId = await storage.read(key: 'userId');
+  print(userId);
 
   String userEndPoint = 'http://localhost:8000/user';
   Dio dio = Dio();

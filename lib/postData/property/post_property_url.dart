@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+var storage = const FlutterSecureStorage();
 void createPropertyAd(
     String arguments,
     String type,
@@ -17,6 +19,7 @@ void createPropertyAd(
     String description,
     List<XFile> file) async {
   String carEndPoint = 'http://localhost:8000/products';
+  var userId = await storage.read(key: 'userId');
 
   List images = [];
   for (var element in file) {
@@ -38,7 +41,8 @@ void createPropertyAd(
     "price": price,
     "adTitle": adTitle,
     "description": description,
-    "image": images
+    "image": images,
+    "userId": userId,
   };
   // print(images);
 
@@ -72,6 +76,7 @@ void updatePropertyAd(
     String description,
     List<XFile> file) async {
   String carEndPoint = 'http://localhost:8000/products';
+  var userId = await storage.read(key: 'userId');
 
   List images = [];
   for (var element in file) {
@@ -93,7 +98,8 @@ void updatePropertyAd(
     "price": price,
     "adTitle": adTitle,
     "description": description,
-    "image": images
+    "image": images,
+    "userId": userId,
   };
   // print(images);
 

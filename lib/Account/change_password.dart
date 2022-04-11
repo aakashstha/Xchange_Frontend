@@ -21,7 +21,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   bool hideRetypePassword = true;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
