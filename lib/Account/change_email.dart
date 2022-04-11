@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:xchange_frontend/account/api.dart';
 
 class ChangeEmail extends StatefulWidget {
   const ChangeEmail({Key? key}) : super(key: key);
@@ -10,6 +11,9 @@ class ChangeEmail extends StatefulWidget {
 }
 
 class _ChangeEmailState extends State<ChangeEmail> {
+  final TextEditingController _newEmailController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,109 +40,69 @@ class _ChangeEmailState extends State<ChangeEmail> {
           ),
         ),
       ),
-      body: ListView(
-        children: [
-          const SizedBox(height: 40),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 22),
-            child: Column(
-              children: [
-                const TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Enter new mail',
-                  ),
-                ),
-                Container(
-                  height: 1.5,
-                  width: double.infinity,
-                  color: Colors.grey,
-                ),
-              ],
-            ),
-          ),
-
-          // Button
-          Padding(
-            padding: const EdgeInsets.only(left: 17, right: 17, top: 50),
-            child: Container(
-              width: 380,
-              height: 60,
-              decoration: BoxDecoration(
-                color: blue,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: CupertinoButton(
-                child: Text(
-                  "Change",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: white,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'RobotoCondensed',
-                  ),
-                ),
-                onPressed: () {},
-              ),
-            ),
-          ),
-
-          // Done
-          const SizedBox(height: 80),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 22),
-            child: Column(
-              children: [
-                const TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Enter code',
-                  ),
-                ),
-                Container(
-                  height: 1.5,
-                  width: double.infinity,
-                  color: Colors.grey,
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Text(
-                      "6 digit code has been sent to your new mail",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: black,
-                      ),
+      body: Form(
+        key: _formKey,
+        child: ListView(
+          children: [
+            const SizedBox(height: 40),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 22),
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: _newEmailController,
+                    decoration: const InputDecoration(
+                      hintText: 'Enter new mail',
                     ),
-                  ],
-                )
-              ],
-            ),
-          ),
-
-          // Button
-          Padding(
-            padding: const EdgeInsets.only(left: 17, right: 17, top: 50),
-            child: Container(
-              width: 380,
-              height: 60,
-              decoration: BoxDecoration(
-                color: blue,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: CupertinoButton(
-                child: Text(
-                  "Done",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: white,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'RobotoCondensed',
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your email';
+                      }
+                      return null;
+                    },
                   ),
-                ),
-                onPressed: () {},
+                  Container(
+                    height: 1.5,
+                    width: double.infinity,
+                    color: Colors.grey,
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
+
+            // Button
+            Padding(
+              padding: const EdgeInsets.only(left: 17, right: 17, top: 50),
+              child: Container(
+                width: 380,
+                height: 60,
+                decoration: BoxDecoration(
+                  color: blue,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: CupertinoButton(
+                  child: Text(
+                    "Change",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: white,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'RobotoCondensed',
+                    ),
+                  ),
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      var result = await updateUserEmail(
+                        _newEmailController.text,
+                      );
+                      print(result);
+                    }
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

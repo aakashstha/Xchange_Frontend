@@ -75,6 +75,29 @@ Future<Map?> updateUserPassword(String oldPassword, String newPassword) async {
   }
 }
 
+Future<Map?> updateUserEmail(String newEmail) async {
+  var userId = await storage.read(key: 'userId');
+
+  String userEndPoint = 'http://localhost:8000/user/change_email';
+
+  Map<String, dynamic> mapData = {
+    "userId": userId,
+    "email": newEmail,
+  };
+  Dio dio = Dio();
+  try {
+    Response response = await dio.put(userEndPoint, data: mapData);
+    // ignore: avoid_print
+    print(response.data);
+
+    return response.data;
+  } catch (error) {
+    // ignore: avoid_print
+    print("new awesome " + error.toString());
+    return null;
+  }
+}
+
 Future<Map?> signup(String fullName, String email, String password) async {
   String userEndPoint = 'http://localhost:8000/user/signup';
 

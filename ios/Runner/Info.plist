@@ -25,7 +25,6 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>whatsapp</string>
-		<string>messages</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

@@ -79,7 +79,7 @@ class _InviteFriendsState extends State<InviteFriends> {
                     ),
                   ),
                   onTap: () async {
-                    await Share.share('Share this in on WhatsApp');
+                    await share();
                   },
                 ),
               ),
@@ -127,8 +127,8 @@ class _InviteFriendsState extends State<InviteFriends> {
                       ],
                     ),
                   ),
-                  onTap: () {
-                    // Navigator.pushNamed(context, "/placeMobileAd");
+                  onTap: () async {
+                    await share();
                   },
                 ),
               ),
@@ -172,8 +172,8 @@ class _InviteFriendsState extends State<InviteFriends> {
                       ],
                     ),
                   ),
-                  onTap: () {
-                    // Navigator.pushNamed(context, "/placeMobileAd");
+                  onTap: () async {
+                    await share();
                   },
                 ),
               ),
@@ -221,8 +221,8 @@ class _InviteFriendsState extends State<InviteFriends> {
                       ],
                     ),
                   ),
-                  onTap: () {
-                    // Navigator.pushNamed(context, "/placeMobileAd");
+                  onTap: () async {
+                    await share();
                   },
                 ),
               ),
@@ -240,4 +240,10 @@ class _InviteFriendsState extends State<InviteFriends> {
       ),
     );
   }
+}
+
+Future<void> share() async {
+  await Share.share(
+    'Hello,\nXchange is a simple and secure app that allows me to easily buy and sell any products online.\n\nDownload Xchange app from the link below:\nhttps://apps.apple.com/np/app/xchange-buy-sell-app/id116378676698',
+  );
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
+import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
 
 class PrivateInformation extends StatefulWidget {
   const PrivateInformation({Key? key}) : super(key: key);
@@ -9,6 +10,10 @@ class PrivateInformation extends StatefulWidget {
 }
 
 class _PrivateInformationState extends State<PrivateInformation> {
+  var gender = ["Male", "Female", "Other"];
+  var genderSymbol = [Icons.male, Icons.female, Icons.transgender];
+  var changeGender = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,10 +143,10 @@ class _PrivateInformationState extends State<PrivateInformation> {
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     child: Row(
                       children: [
-                        const Icon(Icons.male, size: 26),
+                        Icon(genderSymbol[changeGender], size: 26),
                         const SizedBox(width: 10),
                         Text(
-                          'Male',
+                          gender[changeGender],
                           style: TextStyle(
                             fontSize: 18,
                             color: black,
@@ -152,7 +157,41 @@ class _PrivateInformationState extends State<PrivateInformation> {
                     ),
                   ),
                   onTap: () {
-                    // Navigator.pushNamed(context, "/changeEmail");
+                    showAdaptiveActionSheet(
+                      context: context,
+                      actions: <BottomSheetAction>[
+                        BottomSheetAction(
+                          title: const Text('Male'),
+                          onPressed: () {
+                            setState(() {
+                              changeGender = 0;
+                            });
+                            Navigator.pop(context);
+                          },
+                        ),
+                        BottomSheetAction(
+                          title: const Text('Female'),
+                          onPressed: () {
+                            setState(() {
+                              changeGender = 1;
+                            });
+                            Navigator.pop(context);
+                          },
+                        ),
+                        BottomSheetAction(
+                          title: const Text('Other'),
+                          onPressed: () {
+                            setState(() {
+                              changeGender = 2;
+                            });
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                      cancelAction: CancelAction(
+                        title: const Text('Cancel'),
+                      ),
+                    );
                   },
                 ),
               ),
