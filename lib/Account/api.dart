@@ -155,3 +155,19 @@ Future<List<dynamic>> getRecommendation() async {
     throw Exception('Failed to load post');
   }
 }
+
+Future<Map> search(String keyValue) async {
+  var key = keyValue;
+
+  String userEndPoint = "http://localhost:8000/products/search";
+  Dio dio = Dio();
+  try {
+    Response response = await dio.get(userEndPoint + '/$key');
+    // print(response.data['recommendedProduct']);
+    return response.data;
+  } catch (error) {
+    // ignore: avoid_print
+    print("Error from getting user" + error.toString());
+    throw Exception('Failed to load post');
+  }
+}

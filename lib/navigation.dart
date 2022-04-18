@@ -9,6 +9,7 @@ import 'package:xchange_frontend/Home/sell.dart';
 import 'package:xchange_frontend/Home/my_ads.dart';
 import 'package:xchange_frontend/Home/account.dart';
 import 'package:xchange_frontend/Home/Others/more_category.dart';
+import 'package:xchange_frontend/Home/Others/search.dart';
 import 'package:xchange_frontend/account/edit_profile.dart';
 import 'package:xchange_frontend/account/settings.dart';
 import 'package:xchange_frontend/account/private_information.dart';
@@ -74,6 +75,7 @@ class MyApp extends StatelessWidget {
 
         // Others
         '/moreCategory': (context) => const MoreCategory(),
+        '/search': (context) => const Search(),
 
         // Acount
         '/editProfile': (context) => const EditProfile(),

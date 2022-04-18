@@ -13,39 +13,59 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    // String arguments = ModalRoute.of(context)?.settings.arguments as String;
-
-    // print(arguments);
+    final TextEditingController _searchController = TextEditingController();
 
     return ListView(
       children: [
         const SizedBox(height: 30),
         // Search Bar
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 17),
-          child: Container(
-            height: 40,
-            width: 380,
-            decoration: BoxDecoration(
-              color: lightGrey,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(12),
-              ),
-            ),
-            child: TextField(
-              decoration: InputDecoration(
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Icon(
-                    Icons.search,
-                    color: spanishGrey,
-                    size: 26,
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 17),
+              child: Container(
+                height: 40,
+                width: 315,
+                decoration: BoxDecoration(
+                  color: lightGrey,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(12),
                   ),
                 ),
-                hintText: 'Find anything',
+                child: TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Icon(
+                        Icons.search,
+                        color: spanishGrey,
+                        size: 26,
+                      ),
+                    ),
+                    hintText: 'Find any ads',
+                  ),
+                ),
               ),
             ),
-          ),
+            TextButton(
+              child: const Text("Search"),
+              onPressed: () async {
+                final String searchKeyword = _searchController.text;
+                if (searchKeyword.isEmpty) {
+                  var snackBar = const SnackBar(
+                    content: Text(
+                        'The Empty search cannot be made. Pleae type any ads name.'),
+                  );
+
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                } else {
+                  var result = await search(searchKeyword);
+                  Navigator.pushNamed(context, "/search", arguments: result);
+                }
+              },
+            ),
+          ],
         ),
         Padding(
           padding: const EdgeInsets.only(left: 17, top: 25, bottom: 25),
@@ -382,6 +402,9 @@ class _HomeState extends State<Home> {
             }
           },
         ),
+        const SizedBox(
+          height: 20,
+        )
       ],
     );
   }
