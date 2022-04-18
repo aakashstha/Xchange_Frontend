@@ -11,4 +11,3 @@ import 'package:xchange_frontend/navigation.dart';
 void main() {
   runApp(const MyApp());
 }
-

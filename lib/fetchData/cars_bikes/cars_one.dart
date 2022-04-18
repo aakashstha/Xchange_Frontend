@@ -259,7 +259,7 @@ class CarOneAd extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
-                          // ignore: avoid_print 
+                          // ignore: avoid_print
                           print('Edit Ad');
                           Navigator.pushNamed(context, "/updateBookAndOthersAd",
                               arguments: arguments);

@@ -138,3 +138,20 @@ Future<List<dynamic>> fetchAllUserAds() async {
     throw Exception('Failed to load post');
   }
 }
+
+Future<List<dynamic>> getRecommendation() async {
+  // var userId = await storage.read(key: 'userId');
+
+  String userEndPoint = "http://localhost:8000/products/recommendation/python";
+  Dio dio = Dio();
+  try {
+    Response response =
+        await dio.post(userEndPoint, data: {"adTitle": "Ntorq2"});
+    // print(response.data['recommendedProduct']);
+    return response.data['recommendedProduct'];
+  } catch (error) {
+    // ignore: avoid_print
+    print("Error from getting user" + error.toString());
+    throw Exception('Failed to load post');
+  }
+}

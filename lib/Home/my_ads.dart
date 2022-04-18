@@ -40,17 +40,17 @@ class _MyAdsState extends State<MyAds> {
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: white,
-        child: Icon(
-          Icons.notifications,
-          color: black,
-        ),
-        onPressed: () {
-          // ignore: avoid_print
-          print("Notificatins");
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: white,
+      //   child: Icon(
+      //     Icons.notifications,
+      //     color: black,
+      //   ),
+      //   onPressed: () {
+      //     // ignore: avoid_print
+      //     print("Notificatins");
+      //   },
+      // ),
     );
   }
 }
@@ -75,6 +75,7 @@ Widget getAd(dynamic datalist, BuildContext context) {
       category == 'musicInstruments') {
     fetchRoute = '/fetchOneBookAd';
   }
+  
   return InkWell(
     onTap: () {
       var showUpdateDeleteButton = true;

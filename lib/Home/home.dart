@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:xchange_frontend/account/api.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -350,177 +351,172 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-
+        const SizedBox(
+          height: 20,
+        ),
         // Real Recommendation Part
-        Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 17, top: 20),
-              child: Container(
-                width: 182,
-                height: 200,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                    width: 1,
-                    color: Colors.grey,
+        FutureBuilder<List>(
+          future: getRecommendation(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            //  print(snapshot.data);
+            if (snapshot.hasData) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 17),
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 15.0,
+                    mainAxisSpacing: 15.0,
                   ),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(10),
-                  ),
+                  itemBuilder: (BuildContext context, int index) {
+                    return getRecommendedAd(snapshot.data[index], context);
+                  },
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: ClipRRect(
-                        child: Image.asset('./images/macbook.jpeg'),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10, top: 2),
-                      child: Text(
-                        "Rs. 120,000",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                          color: black,
-                          fontFamily: 'RobotoCondensed',
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10, top: 2),
-                      child: Text(
-                        "Macbook Pro 2017 model",
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: black,
-                          fontFamily: 'RobotoCondensed',
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 135, top: 8),
-                      child: Text(
-                        "Today",
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: black,
-                          fontFamily: 'RobotoCondensed',
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.place,
-                            size: 15,
-                            color: black,
-                          ),
-                          Text(
-                            "Bhaktapur, Thimi",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: black,
-                              fontFamily: 'RobotoCondensed',
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 17, top: 20),
-              child: Container(
-                width: 182,
-                height: 200,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                    width: 1,
-                    color: Colors.grey,
-                  ),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: ClipRRect(
-                        child: Image.asset('./images/macbook.jpeg'),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10, top: 2),
-                      child: Text(
-                        "Rs. 120,000",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                          color: black,
-                          fontFamily: 'RobotoCondensed',
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10, top: 2),
-                      child: Text(
-                        "Macbook Pro 2017 model",
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: black,
-                          fontFamily: 'RobotoCondensed',
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 135, top: 8),
-                      child: Text(
-                        "Today",
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: black,
-                          fontFamily: 'RobotoCondensed',
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.place,
-                            size: 15,
-                            color: black,
-                          ),
-                          Text(
-                            "Bhaktapur, Thimi",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: black,
-                              fontFamily: 'RobotoCondensed',
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ],
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
         ),
       ],
     );
   }
+}
+
+/*
+
+
+
+
+
+
+
+
+
+
+*/
+Widget getRecommendedAd(dynamic datalist, BuildContext context) {
+  // print(datalist);
+  String fetchRoute = '';
+  String category = datalist['category'];
+
+  if (category == 'cars' || category == 'bikes') {
+    fetchRoute = '/fetchOneCarAd';
+  } else if (category == 'mobiles') {
+    fetchRoute = '/fetchOneMobileAd';
+  } else if (category == 'properties') {
+    fetchRoute = '/fetchOnePropertyAd';
+  } else if (category == 'jobs') {
+    fetchRoute = '/fetchOneJobAd';
+  } else if (category == 'rooms') {
+    fetchRoute = '/fetchOneRoomAd';
+  } else if (category == 'books' ||
+      category == 'services' ||
+      category == 'electronics' ||
+      category == 'musicInstruments') {
+    fetchRoute = '/fetchOneBookAd';
+  }
+
+  return InkWell(
+    onTap: () {
+      var showUpdateDeleteButton = false;
+
+      Navigator.pushNamed(
+        context,
+        fetchRoute,
+        arguments: [datalist, showUpdateDeleteButton],
+      );
+    },
+    child: Container(
+      width: 182,
+      height: 200,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(
+          width: 1,
+          color: Colors.grey,
+        ),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(10),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: 10,
+          ),
+          Center(
+            child: ClipRRect(
+              child: SizedBox(
+                width: 145,
+                height: 100,
+                child: datalist['images'].isEmpty
+                    ? Image.asset('./images/nono.png')
+                    : Image.network(datalist['images'][0].toString()),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10, top: 8),
+            child: Text(
+              datalist['price'].toString(),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+                color: black,
+                fontFamily: 'RobotoCondensed',
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10, top: 0),
+            child: Text(
+              datalist['adTitle'],
+              style: TextStyle(
+                fontSize: 12,
+                color: black,
+                fontFamily: 'RobotoCondensed',
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 105, top: 2),
+            child: Text(
+              datalist['date'].toString().substring(0, 10),
+              style: TextStyle(
+                fontSize: 12,
+                color: black,
+                fontFamily: 'RobotoCondensed',
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.place,
+                  size: 15,
+                  color: black,
+                ),
+                Text(
+                  datalist['location'],
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: black,
+                    fontFamily: 'RobotoCondensed',
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    ),
+  );
 }
