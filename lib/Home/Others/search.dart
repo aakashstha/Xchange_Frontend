@@ -13,7 +13,6 @@ class _MyAdsState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
-    print(arguments['result'].length);
 
     return Scaffold(
       appBar: AppBar(
