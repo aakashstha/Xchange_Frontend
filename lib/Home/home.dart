@@ -375,33 +375,33 @@ class _HomeState extends State<Home> {
           height: 20,
         ),
         // Real Recommendation Part
-        FutureBuilder<List>(
-          future: getRecommendation(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            //  print(snapshot.data);
-            if (snapshot.hasData) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 17),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  itemCount: snapshot.data.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 15.0,
-                    mainAxisSpacing: 15.0,
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                    return getRecommendedAd(snapshot.data[index], context);
-                  },
-                ),
-              );
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        ),
+        // FutureBuilder<List>(
+        //   future: getRecommendation(),
+        //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+        //     //  print(snapshot.data);
+        //     if (snapshot.hasData) {
+        //       return Padding(
+        //         padding: const EdgeInsets.symmetric(horizontal: 17),
+        //         child: GridView.builder(
+        //           shrinkWrap: true,
+        //           itemCount: snapshot.data.length,
+        //           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        //             crossAxisCount: 2,
+        //             crossAxisSpacing: 15.0,
+        //             mainAxisSpacing: 15.0,
+        //           ),
+        //           itemBuilder: (BuildContext context, int index) {
+        //             return getRecommendedAd(snapshot.data[index], context);
+        //           },
+        //         ),
+        //       );
+        //     } else {
+        //       return const Center(
+        //         child: CircularProgressIndicator(),
+        //       );
+        //     }
+        //   },
+        // ),
         const SizedBox(
           height: 20,
         )

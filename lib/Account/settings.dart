@@ -37,55 +37,11 @@ class _SettingsState extends State<Settings> {
       ),
       body: ListView(
         children: [
-          const SizedBox(height: 35),
+          const SizedBox(height: 25),
           // Notifications
           Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: InkWell(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.notifications, size: 26),
-                            const SizedBox(width: 10),
-                            Text(
-                              'Notifications',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: black,
-                                fontFamily: 'RobotoCondensed',
-                              ),
-                            ),
-                          ],
-                        ),
-                        Icon(
-                          Icons.chevron_right,
-                          size: 26,
-                          color: black,
-                        )
-                      ],
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.pushNamed(context, "/notifications");
-                  },
-                ),
-              ),
-
               // Change Password
-              Padding(
-                padding: const EdgeInsets.only(left: 44),
-                child: Container(
-                  height: 1.5,
-                  width: double.infinity,
-                  color: Colors.grey,
-                ),
-              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: InkWell(
@@ -118,6 +74,49 @@ class _SettingsState extends State<Settings> {
                   ),
                   onTap: () {
                     Navigator.pushNamed(context, "/changePassword");
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 44),
+                child: Container(
+                  height: 1.5,
+                  width: double.infinity,
+                  color: Colors.grey,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: InkWell(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.no_accounts_rounded, size: 26),
+                            const SizedBox(width: 10),
+                            Text(
+                              'Delete Account',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: black,
+                                fontFamily: 'RobotoCondensed',
+                              ),
+                            ),
+                          ],
+                        ),
+                        Icon(
+                          Icons.chevron_right,
+                          size: 26,
+                          color: black,
+                        )
+                      ],
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(context, "/deleteAccount");
                   },
                 ),
               ),

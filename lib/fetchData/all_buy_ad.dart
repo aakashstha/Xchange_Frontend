@@ -133,7 +133,7 @@ Widget getAd(dynamic datalist, BuildContext context, String category) {
                     Padding(
                       padding: const EdgeInsets.only(left: 20, top: 2),
                       child: Text(
-                        datalist["adTitle"],
+                        datalist["adTitle"].toString().substring(0, 20),
                         style: TextStyle(
                           fontSize: 12,
                           color: black,

@@ -56,6 +56,15 @@ class _MyAdsState extends State<MyAds> {
 }
 
 Widget getAd(dynamic datalist, BuildContext context) {
+  List a = datalist['images'];
+  // // print(a[0] == '[]');
+  // print(datalist['images'][0] == "");
+  // a.clear();
+  // if (a[0] == '[]') {
+  //   a.clear();
+  // } else {
+  //   a.add(datalist['images']);
+  // }
   String fetchRoute = '';
   String category = datalist['category'];
 
@@ -75,7 +84,7 @@ Widget getAd(dynamic datalist, BuildContext context) {
       category == 'musicInstruments') {
     fetchRoute = '/fetchOneBookAd';
   }
-  
+
   return InkWell(
     onTap: () {
       var showUpdateDeleteButton = true;
@@ -135,7 +144,8 @@ Widget getAd(dynamic datalist, BuildContext context) {
                     Padding(
                       padding: const EdgeInsets.only(left: 20, top: 2),
                       child: Text(
-                        datalist["adTitle"],
+                        datalist["adTitle"].toString(),
+                        // datalist["adTitle"].toString().substring(0, 20),
                         style: TextStyle(
                           fontSize: 12,
                           color: black,

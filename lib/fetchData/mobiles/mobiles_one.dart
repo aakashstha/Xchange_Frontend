@@ -11,6 +11,8 @@ class MobileOneAd extends StatelessWidget {
     Map arguments = argumentData[0];
     var showUpdateDeleteButton = argumentData[1];
 
+    print(arguments['adTitle'].toString().substring(0, 20));
+
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12),

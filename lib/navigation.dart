@@ -15,7 +15,7 @@ import 'package:xchange_frontend/account/settings.dart';
 import 'package:xchange_frontend/account/private_information.dart';
 import 'package:xchange_frontend/account/invite_friends.dart';
 import 'package:xchange_frontend/account/help.dart';
-import 'package:xchange_frontend/account/notifications.dart';
+import 'package:xchange_frontend/account/account_delete.dart';
 import 'package:xchange_frontend/account/change_password.dart';
 import 'package:xchange_frontend/account/change_email.dart';
 import 'package:xchange_frontend/account/change_phonenumber.dart';
@@ -83,7 +83,7 @@ class MyApp extends StatelessWidget {
         '/privateInformation': (context) => const PrivateInformation(),
         '/inviteFriends': (context) => const InviteFriends(),
         '/help': (context) => const Help(),
-        '/notifications': (context) => const Notifications(),
+        '/deleteAccount': (context) => const DeleteAccount(),
         '/changePassword': (context) => const ChangePassword(),
         '/changeEmail': (context) => const ChangeEmail(),
         '/changePhoneNumber': (context) => const ChangePhoneNumber(),

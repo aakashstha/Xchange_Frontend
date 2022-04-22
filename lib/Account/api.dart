@@ -171,3 +171,21 @@ Future<Map> search(String keyValue) async {
     throw Exception('Failed to load post');
   }
 }
+
+Future<Map> deleteUserandAds() async {
+  var userId = await storage.read(key: 'userId');
+  var token = await storage.read(key: "token");
+
+  String userEndPoint = "http://localhost:8000/user";
+  Dio dio = Dio();
+  try {
+    Response response = await dio
+        .delete(userEndPoint + '/$userId', data: {"authorization": token});
+    // print(response.data['recommendedProduct']);
+    return response.data;
+  } catch (error) {
+    // ignore: avoid_print
+    print("Error from getting user" + error.toString());
+    throw Exception('Failed to load post');
+  }
+}
