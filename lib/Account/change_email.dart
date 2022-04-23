@@ -16,6 +16,8 @@ class _ChangeEmailState extends State<ChangeEmail> {
 
   @override
   Widget build(BuildContext context) {
+    String arguments = ModalRoute.of(context)?.settings.arguments as String;
+
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
@@ -95,12 +97,41 @@ class _ChangeEmailState extends State<ChangeEmail> {
                       var result = await updateUserEmail(
                         _newEmailController.text,
                       );
-                      print(result);
+                      if (result != null) {
+                        var snackBar = const SnackBar(
+                          content: Text(
+                              'Your email is changed! Please verify your email'),
+                        );
+
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        Navigator.pushNamed(context, "/login");
+                      } else {
+                        var snackBar = const SnackBar(
+                          content: Text('Something went wrong!'),
+                        );
+
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
                     }
                   },
                 ),
               ),
             ),
+            const SizedBox(
+              height: 40,
+            ),
+
+            Center(
+              child: Text(
+                "Your email is: $arguments",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: black,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'RobotoCondensed',
+                ),
+              ),
+            )
           ],
         ),
       ),

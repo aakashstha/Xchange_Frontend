@@ -20,8 +20,8 @@ Future<Map> getIndividualUser() async {
   }
 }
 
-void updateIndividualUser(
-    String _id, String fullName, String bio, String website, String dob) async {
+void updateIndividualUser(String _id, String fullName, String bio,
+    String website, String dob, String gender) async {
   String userEndPoint = 'http://localhost:8000/user';
 
   // List images = [];
@@ -35,6 +35,7 @@ void updateIndividualUser(
     "bio": bio,
     "website": website,
     "dob": dob,
+    "gender": gender
   };
 
   // FormData data = FormData.fromMap(mapData);
@@ -186,6 +187,28 @@ Future<Map> deleteUserandAds() async {
   } catch (error) {
     // ignore: avoid_print
     print("Error from getting user" + error.toString());
+    throw Exception('Failed to load post');
+  }
+}
+
+Future<Map> resetPassword(String email, String password) async {
+  String userEndPoint = 'http://localhost:8000/user/reset_password';
+
+  Map<String, dynamic> mapData = {
+    "email": email,
+    "password": password,
+  };
+
+  Dio dio = Dio();
+
+  try {
+    Response response = await dio.put(userEndPoint, data: mapData);
+    // ignore: avoid_print
+    print(response.data);
+    return response.data;
+  } catch (error) {
+    // ignore: avoid_print
+    // print("new awesome " + error.toString());
     throw Exception('Failed to load post');
   }
 }

@@ -88,8 +88,11 @@ class _AccountState extends State<Account> {
                       ],
                     ),
                   ),
-                  onTap: () {
-                    Navigator.pushNamed(context, "/privateInformation");
+                  onTap: () async {
+                    var result = await getIndividualUser();
+
+                    Navigator.pushNamed(context, "/privateInformation",
+                        arguments: result);
                   },
                 ),
                 Container(

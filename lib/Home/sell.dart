@@ -20,7 +20,7 @@ class _SellState extends State<Sell> {
           ),
           Center(
             child: Text(
-              "What would you like to sell?",
+              "What would you like to sell today?",
               style: TextStyle(
                 color: black,
                 fontWeight: FontWeight.bold,
@@ -29,71 +29,17 @@ class _SellState extends State<Sell> {
               ),
             ),
           ),
-          const SizedBox(height: 40),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 22),
-            child: Container(
-              width: 370,
-              height: 100,
-              decoration: BoxDecoration(
-                color: HomeColors.urgentSale,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 40),
-                child: Row(children: [
-                  Icon(
-                    Icons.flight_takeoff,
-                    size: 40,
-                    color: white,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Urgent Sale",
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          "Sell anything immediately.",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ]),
-              ),
-            ),
-          ),
+
           const SizedBox(height: 40),
           // Normal Sell
-          Center(
-            child: Text(
-              "Normal Sell",
-              style: TextStyle(
-                fontSize: 16,
-                color: black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          const SizedBox(height: 2),
           Center(
             child: Text(
               "choose from category",
               style: TextStyle(
                 fontSize: 16,
                 color: black,
+                fontWeight: FontWeight.bold,
+                decoration: TextDecoration.underline,
               ),
             ),
           ),
@@ -645,6 +591,9 @@ class _SellState extends State<Sell> {
               color: Colors.grey,
             ),
           ),
+          const SizedBox(
+            height: 30,
+          )
         ],
       ),
     );

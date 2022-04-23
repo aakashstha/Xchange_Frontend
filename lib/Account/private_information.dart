@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
 import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:xchange_frontend/account/api.dart';
 
 class PrivateInformation extends StatefulWidget {
   const PrivateInformation({Key? key}) : super(key: key);
@@ -16,6 +18,8 @@ class _PrivateInformationState extends State<PrivateInformation> {
 
   @override
   Widget build(BuildContext context) {
+    Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
+
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
@@ -76,56 +80,15 @@ class _PrivateInformationState extends State<PrivateInformation> {
                       ],
                     ),
                   ),
-                  onTap: () {
-                    Navigator.pushNamed(context, "/changeEmail");
+                  onTap: () async {
+                    var storage = const FlutterSecureStorage();
+                    var email = await storage.read(key: 'email');
+                    Navigator.pushNamed(context, "/changeEmail",
+                        arguments: email);
                   },
                 ),
               ),
 
-              // Change Phone Number
-              Padding(
-                padding: const EdgeInsets.only(left: 44),
-                child: Container(
-                  height: 1.5,
-                  width: double.infinity,
-                  color: Colors.grey,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: InkWell(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.phone_iphone, size: 26),
-                            const SizedBox(width: 10),
-                            Text(
-                              'Change Phone Number',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: black,
-                                fontFamily: 'RobotoCondensed',
-                              ),
-                            ),
-                          ],
-                        ),
-                        Icon(
-                          Icons.chevron_right,
-                          size: 26,
-                          color: black,
-                        )
-                      ],
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.pushNamed(context, "/changePhoneNumber");
-                  },
-                ),
-              ),
               Padding(
                 padding: const EdgeInsets.only(left: 44),
                 child: Container(
@@ -146,7 +109,7 @@ class _PrivateInformationState extends State<PrivateInformation> {
                         Icon(genderSymbol[changeGender], size: 26),
                         const SizedBox(width: 10),
                         Text(
-                          gender[changeGender],
+                          arguments['gender'],
                           style: TextStyle(
                             fontSize: 18,
                             color: black,
@@ -166,7 +129,16 @@ class _PrivateInformationState extends State<PrivateInformation> {
                             setState(() {
                               changeGender = 0;
                             });
+                            updateIndividualUser(
+                              arguments['_id'],
+                              arguments['fullName'],
+                              arguments['bio'],
+                              arguments['website'],
+                              arguments['dob'],
+                              gender[changeGender],
+                            );
                             Navigator.pop(context);
+                            // Navigator.pop(context);
                           },
                         ),
                         BottomSheetAction(
@@ -175,7 +147,16 @@ class _PrivateInformationState extends State<PrivateInformation> {
                             setState(() {
                               changeGender = 1;
                             });
+                            updateIndividualUser(
+                              arguments['_id'],
+                              arguments['fullName'],
+                              arguments['bio'],
+                              arguments['website'],
+                              arguments['dob'],
+                              gender[changeGender],
+                            );
                             Navigator.pop(context);
+                            // Navigator.pop(context);
                           },
                         ),
                         BottomSheetAction(
@@ -184,7 +165,16 @@ class _PrivateInformationState extends State<PrivateInformation> {
                             setState(() {
                               changeGender = 2;
                             });
+                            updateIndividualUser(
+                              arguments['_id'],
+                              arguments['fullName'],
+                              arguments['bio'],
+                              arguments['website'],
+                              arguments['dob'],
+                              gender[changeGender],
+                            );
                             Navigator.pop(context);
+                            // Navigator.pop(context);
                           },
                         ),
                       ],

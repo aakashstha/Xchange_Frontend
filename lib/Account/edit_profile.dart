@@ -22,12 +22,14 @@ class _EditProfileState extends State<EditProfile> {
     Map argument = argumentData[0];
     String twoCharacter = argumentData[1];
     String _id = argument['_id'];
+    String _gender = argument['gender'];
 
     if (updateOnce) {
       _fullNameController.text = argument['fullName'];
       _bioController.text = argument['bio'];
       _websiteController.text = argument['website'];
       _dobController.text = argument['dob'];
+
       updateOnce = false;
     }
     return Scaffold(
@@ -63,6 +65,7 @@ class _EditProfileState extends State<EditProfile> {
                 _bioController.text,
                 _websiteController.text,
                 _dobController.text,
+                _gender,
               );
               Navigator.pop(context);
             },

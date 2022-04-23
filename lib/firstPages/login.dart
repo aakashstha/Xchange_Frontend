@@ -149,30 +149,7 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
-
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 25, top: 12),
-                  child: Text(
-                    "Remember me",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: black,
-                      fontFamily: 'RobotoCondensed',
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 190, top: 22),
-                  child: CupertinoSwitch(
-                    value: true,
-                    onChanged: (bool value) {},
-                  ),
-                ),
-              ],
-            ),
-
+            const SizedBox(height: 40),
             Row(
               children: [
                 Padding(
@@ -194,7 +171,7 @@ class _LoginState extends State<Login> {
                           fontFamily: 'RobotoCondensed',
                         ),
                       ),
-                      onPressed: () async {
+                      onPressed: () {
                         // var storage = const FlutterSecureStorage();
                         // var value = await storage.read(key: "email");
                         // print(value);
@@ -268,7 +245,7 @@ class _LoginState extends State<Login> {
             ),
 
             Padding(
-              padding: const EdgeInsets.only(top: 140),
+              padding: const EdgeInsets.only(top: 60),
               child: TextButton(
                 child: Text(
                   "Forgot Password?",

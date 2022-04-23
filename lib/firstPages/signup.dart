@@ -28,6 +28,7 @@ class _SignupState extends State<Signup> {
         child: ListView(
           shrinkWrap: true,
           children: [
+            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.only(right: 360, top: 5),
               child: IconButton(
@@ -243,7 +244,7 @@ class _SignupState extends State<Signup> {
                       padding: const EdgeInsets.only(right: 5),
                       child: IconButton(
                         splashColor: Colors.transparent,
-                        icon: hidePassword
+                        icon: hideConfirmPassword
                             ? const Icon(Icons.visibility_off_outlined)
                             : const Icon(Icons.visibility_outlined),
                         color: spanishGrey,
@@ -287,6 +288,10 @@ class _SignupState extends State<Signup> {
                   ),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
+                      RegExp regex = RegExp(
+                          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[!@#\$&*~]).{8,}$');
+                      // print(regex.hasMatch(_passwordController.text));
+
                       if (_passwordController.text !=
                           _confirmPasswordController.text) {
                         var snackBar = const SnackBar(
@@ -295,10 +300,11 @@ class _SignupState extends State<Signup> {
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         return;
-                      } else if (_passwordController.text.length < 5) {
+                      } else if (_passwordController.text.length < 8 ||
+                          !regex.hasMatch(_passwordController.text)) {
                         var snackBar = const SnackBar(
                           content: Text(
-                              'Your password should be atleast 5 characters long!'),
+                              'Your password should be atleast 8 characters long, one upper case and one Special character'),
                         );
 
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -308,7 +314,8 @@ class _SignupState extends State<Signup> {
                       var result = await signup(_fullNameController.text,
                           _emailController.text, _passwordController.text);
 
-                      if (result != null) {
+                      if (result != null &&
+                          regex.hasMatch(_passwordController.text)) {
                         var snackBar = const SnackBar(
                           content: Text(
                               'Your Sign Up is successful! Please verify your email and login'),
