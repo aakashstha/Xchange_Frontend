@@ -19,6 +19,14 @@ class _PrivateInformationState extends State<PrivateInformation> {
   @override
   Widget build(BuildContext context) {
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
+    print(arguments['gender']);
+    if (arguments['gender'] == "Male") {
+      changeGender = 0;
+    } else if (arguments['gender'] == "Female") {
+      changeGender = 1;
+    } else if (arguments['gender'] == "Other") {
+      changeGender = 0;
+    }
 
     return Scaffold(
       appBar: AppBar(

@@ -107,7 +107,7 @@ class CarOneAd extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 270, top: 5),
                   child: Text(
-                    arguments['date'].toString().substring(0, 10),
+                    arguments['date'].toString().substring(0, 3),
                     style: TextStyle(
                       fontSize: 20,
                       color: black,
