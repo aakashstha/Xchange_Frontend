@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xchange_frontend/firstPages/login.dart';
 import 'package:xchange_frontend/firstPages/theme_colors.dart';
-import 'package:xchange_frontend/firstPages/home_navigation.dart';
+import 'package:xchange_frontend/Home/home_navigation.dart';
 import 'package:xchange_frontend/firstPages/signup.dart';
 import 'package:xchange_frontend/firstPages/forgot_password.dart';
 import 'package:xchange_frontend/Home/home.dart';

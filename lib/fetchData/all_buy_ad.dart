@@ -34,16 +34,29 @@ class AllBuyAds extends StatelessWidget {
         future: fetchAllCategoricalAds(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            return ListView.builder(
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  // return Icon(Icons.ac_unit);
-                  return getAd(
-                    snapshot.data[index],
-                    context,
-                    arguments['category'],
+            return snapshot.data.isNotEmpty
+                ? ListView.builder(
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      // return Icon(Icons.ac_unit);
+                      return getAd(
+                        snapshot.data[index],
+                        context,
+                        arguments['category'],
+                      );
+                    },
+                  )
+                : Center(
+                    child: Text(
+                      'There are no ads in this "${arguments['category']}" category. \n\nPlease try in other categories or check back aftersome time.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   );
-                });
           } else {
             return const Center(
               child: CircularProgressIndicator(),

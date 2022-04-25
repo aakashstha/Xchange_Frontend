@@ -131,7 +131,7 @@ Future<List<dynamic>> fetchAllUserAds() async {
   Dio dio = Dio();
   try {
     Response response = await dio.get(userEndPoint + '/$userId');
-    print(response.data);
+    // print(response.data);
     return response.data['products'];
   } catch (error) {
     // ignore: avoid_print
@@ -141,13 +141,12 @@ Future<List<dynamic>> fetchAllUserAds() async {
 }
 
 Future<List<dynamic>> getRecommendation() async {
-  // var userId = await storage.read(key: 'userId');
+  var adId = await storage.read(key: 'adIdRecommend');
 
   String userEndPoint = "http://localhost:8000/products/recommendation/python";
   Dio dio = Dio();
   try {
-    Response response =
-        await dio.post(userEndPoint, data: {"adTitle": "Ntorq2"});
+    Response response = await dio.post(userEndPoint, data: {"adId": adId});
     // print(response.data['recommendedProduct']);
     return response.data['recommendedProduct'];
   } catch (error) {

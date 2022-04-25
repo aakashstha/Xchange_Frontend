@@ -61,6 +61,18 @@ class _HomeState extends State<Home> {
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 } else {
                   var result = await search(searchKeyword);
+
+                  if (result['result'].isNotEmpty) {
+                    var keyword = result['result'][0]['_id'];
+                    print(result['result'][0]['adTitle']);
+
+                    await storage.write(key: 'adIdRecommend', value: keyword);
+                    // print(result['result'][0]['adTitle']);
+                  }
+
+                  // var a = await storage.read(key: 'adIdRecommend');
+                  // print(a);
+
                   Navigator.pushNamed(context, "/search", arguments: result);
                 }
               },
@@ -375,33 +387,33 @@ class _HomeState extends State<Home> {
           height: 20,
         ),
         // Real Recommendation Part
-        // FutureBuilder<List>(
-        //   future: getRecommendation(),
-        //   builder: (BuildContext context, AsyncSnapshot snapshot) {
-        //     //  print(snapshot.data);
-        //     if (snapshot.hasData) {
-        //       return Padding(
-        //         padding: const EdgeInsets.symmetric(horizontal: 17),
-        //         child: GridView.builder(
-        //           shrinkWrap: true,
-        //           itemCount: snapshot.data.length,
-        //           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        //             crossAxisCount: 2,
-        //             crossAxisSpacing: 15.0,
-        //             mainAxisSpacing: 15.0,
-        //           ),
-        //           itemBuilder: (BuildContext context, int index) {
-        //             return getRecommendedAd(snapshot.data[index], context);
-        //           },
-        //         ),
-        //       );
-        //     } else {
-        //       return const Center(
-        //         child: CircularProgressIndicator(),
-        //       );
-        //     }
-        //   },
-        // ),
+        FutureBuilder<List>(
+          future: getRecommendation(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            //  print(snapshot.data);
+            if (snapshot.hasData) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 17),
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 15.0,
+                    mainAxisSpacing: 15.0,
+                  ),
+                  itemBuilder: (BuildContext context, int index) {
+                    return getRecommendedAd(snapshot.data[index], context);
+                  },
+                ),
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
         const SizedBox(
           height: 20,
         )
@@ -499,7 +511,9 @@ Widget getRecommendedAd(dynamic datalist, BuildContext context) {
           Padding(
             padding: const EdgeInsets.only(left: 10, top: 0),
             child: Text(
-              datalist['adTitle'],
+              datalist["adTitle"].length <= 20
+                  ? datalist["adTitle"].toString()
+                  : datalist["adTitle"].toString().substring(0, 20),
               style: TextStyle(
                 fontSize: 12,
                 color: black,

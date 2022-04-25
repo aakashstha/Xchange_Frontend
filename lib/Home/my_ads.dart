@@ -56,8 +56,8 @@ class _MyAdsState extends State<MyAds> {
 }
 
 Widget getAd(dynamic datalist, BuildContext context) {
-  List a = datalist['images'];
-  print(datalist["adTitle"].length);
+  // List a = datalist['images'];
+  // print(datalist["adTitle"].length);
   // // print(a[0] == '[]');
   // print(datalist['images'][0] == "");
   // a.clear();

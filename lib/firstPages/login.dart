@@ -18,6 +18,7 @@ class _LoginState extends State<Login> {
   final TextEditingController _controllerPassword = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool hidePassword = true;
+  var storage = const FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +172,9 @@ class _LoginState extends State<Login> {
                           fontFamily: 'RobotoCondensed',
                         ),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
+                        var adId = await storage.read(key: 'adIdRecommend');
+                        print(adId);
                         // var storage = const FlutterSecureStorage();
                         // var value = await storage.read(key: "email");
                         // print(value);
@@ -207,7 +210,7 @@ class _LoginState extends State<Login> {
                               await login(_userEmail, _password);
 
                           print(_loginDetails);
-                          var storage = const FlutterSecureStorage();
+
                           if (_loginDetails != null &&
                               !_loginDetails['confirm']) {
                             var snackBar = const SnackBar(
@@ -226,6 +229,11 @@ class _LoginState extends State<Login> {
                             await storage.write(key: 'token', value: token);
                             await storage.write(key: 'userId', value: userId);
                             await storage.write(key: 'email', value: email);
+
+                            var adId = await storage.read(key: 'adIdRecommend');
+                            if (adId == null) {
+                              print("!!!!!!!@@@@@@@@ " + adId!);
+                            }
 
                             Navigator.pushNamed(context, "/navigation");
                           } else {
