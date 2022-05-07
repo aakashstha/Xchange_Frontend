@@ -363,6 +363,9 @@ class _CarAdState extends State<UpdateJobAd> {
                         ),
                       ),
                       onPressed: () {
+                        var snackBar = const SnackBar(
+                          content: Text('Your ad updated successfully!!'),
+                        );
                         bool imageEmpty = false;
                         if (imagefiles?.isNotEmpty.toString() == "null") {
                           imageEmpty = false;
@@ -388,6 +391,7 @@ class _CarAdState extends State<UpdateJobAd> {
                             [],
                           );
                           Navigator.pop(context);
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         } else if (_formKey.currentState!.validate() &&
                             imageEmpty) {
                           int _price = int.parse(_priceController.text);
@@ -405,6 +409,7 @@ class _CarAdState extends State<UpdateJobAd> {
                             imagefiles!,
                           );
                           Navigator.pop(context);
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
                       },
                     ),

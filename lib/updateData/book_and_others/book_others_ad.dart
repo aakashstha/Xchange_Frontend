@@ -341,6 +341,9 @@ class _CarAdState extends State<UpdateBookAndOthersAd> {
                         ),
                       ),
                       onPressed: () {
+                        var snackBar = const SnackBar(
+                          content: Text('Your ad updated successfully!!'),
+                        );
                         bool imageEmpty = false;
                         if (imagefiles?.isNotEmpty.toString() == "null") {
                           imageEmpty = false;
@@ -359,6 +362,7 @@ class _CarAdState extends State<UpdateBookAndOthersAd> {
                               _adTitleController.text,
                               _descriptionController.text, []);
                           Navigator.pop(context);
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         } else if (_formKey.currentState!.validate() &&
                             imageEmpty) {
                           int _price = int.parse(_priceController.text);
@@ -372,6 +376,7 @@ class _CarAdState extends State<UpdateBookAndOthersAd> {
                             imagefiles!,
                           );
                           Navigator.pop(context);
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
                       },
                     ),

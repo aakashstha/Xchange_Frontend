@@ -398,6 +398,9 @@ class _CarAdState extends State<UpdateCarAd> {
                         ),
                       ),
                       onPressed: () {
+                        var snackBar = const SnackBar(
+                          content: Text('Your ad updated successfully!!'),
+                        );
                         // print(_brandController.text);
                         // print(_priceController.text);
                         // print(_yearController.text);
@@ -431,6 +434,7 @@ class _CarAdState extends State<UpdateCarAd> {
                               _adTitleController.text,
                               _descriptionController.text, []);
                           Navigator.pop(context);
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         } else if (_formKey.currentState!.validate() &&
                             imageEmpty) {
                           int _price = int.parse(_priceController.text);
@@ -447,6 +451,7 @@ class _CarAdState extends State<UpdateCarAd> {
                               _descriptionController.text,
                               imagefiles!);
                           Navigator.pop(context);
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
                       },
                     ),
