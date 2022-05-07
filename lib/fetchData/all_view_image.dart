@@ -24,11 +24,13 @@ class ImageOnly extends StatelessWidget {
                       FittedBox(
                         child: Image.network(
                           argumentImage[pagePosition],
+                          height: MediaQuery.of(context).size.height - 100,
+                          width: MediaQuery.of(context).size.width - 100,
                         ),
                         fit: BoxFit.fill,
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 375, top: 10),
+                        padding: const EdgeInsets.only(left: 375, top: 3),
                         child: Text(
                           (pagePosition + 1).toString() +
                               "/" +

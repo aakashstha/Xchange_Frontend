@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
 
                   if (result['result'].isNotEmpty) {
                     var keyword = result['result'][0]['_id'];
-                    print(result['result'][0]['adTitle']);
+                    print(result['result'][0]['_id']);
 
                     await storage.write(key: 'adIdRecommend', value: keyword);
                     // print(result['result'][0]['adTitle']);
@@ -369,51 +369,51 @@ class _HomeState extends State<Home> {
           ),
         ),
 
-        // Recommendation for you
-        const SizedBox(height: 10),
-        Center(
-          child: Text(
-            "Recommendation for You",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-              color: black,
-              fontFamily: 'RobotoCondensed',
-              decoration: TextDecoration.underline,
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        // Real Recommendation Part
-        FutureBuilder<List>(
-          future: getRecommendation(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            //  print(snapshot.data);
-            if (snapshot.hasData) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 17),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  itemCount: snapshot.data.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 15.0,
-                    mainAxisSpacing: 15.0,
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                    return getRecommendedAd(snapshot.data[index], context);
-                  },
-                ),
-              );
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        ),
+        // // Recommendation for you
+        // const SizedBox(height: 10),
+        // Center(
+        //   child: Text(
+        //     "Recommendation for You",
+        //     style: TextStyle(
+        //       fontWeight: FontWeight.bold,
+        //       fontSize: 16,
+        //       color: black,
+        //       fontFamily: 'RobotoCondensed',
+        //       decoration: TextDecoration.underline,
+        //     ),
+        //   ),
+        // ),
+        // const SizedBox(
+        //   height: 20,
+        // ),
+        // // Real Recommendation Part
+        // FutureBuilder<List>(
+        //   future: getRecommendation(),
+        //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+        //     //  print(snapshot.data);
+        //     if (snapshot.hasData) {
+        //       return Padding(
+        //         padding: const EdgeInsets.symmetric(horizontal: 17),
+        //         child: GridView.builder(
+        //           shrinkWrap: true,
+        //           itemCount: snapshot.data.length,
+        //           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        //             crossAxisCount: 2,
+        //             crossAxisSpacing: 15.0,
+        //             mainAxisSpacing: 15.0,
+        //           ),
+        //           itemBuilder: (BuildContext context, int index) {
+        //             return getRecommendedAd(snapshot.data[index], context);
+        //           },
+        //         ),
+        //       );
+        //     } else {
+        //       return const Center(
+        //         child: CircularProgressIndicator(),
+        //       );
+        //     }
+        //   },
+        // ),
         const SizedBox(
           height: 20,
         )

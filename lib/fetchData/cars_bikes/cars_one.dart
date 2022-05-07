@@ -235,6 +235,7 @@ class CarOneAd extends StatelessWidget {
                           print('Delete Ad');
                           deleteCarAd(arguments["_id"]);
                           Navigator.pop(context);
+                          
                         },
                       ),
                       InkWell(
@@ -261,8 +262,9 @@ class CarOneAd extends StatelessWidget {
                         onTap: () {
                           // ignore: avoid_print
                           print('Edit Ad');
-                          Navigator.pushNamed(context, "/updateBookAndOthersAd",
+                          Navigator.pushNamed(context, "/updateCarAd",
                               arguments: arguments);
+
                         },
                       ),
                     ],
