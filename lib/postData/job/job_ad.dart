@@ -212,7 +212,7 @@ class _CarAdState extends State<JobAd> {
                     controller: _descriptionController,
                     maxLength: 5000,
                     decoration: const InputDecoration(
-                      hintText: 'Describe the item you are selling*',
+                      hintText: 'Describe the nature of job*',
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
